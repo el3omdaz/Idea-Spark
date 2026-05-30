@@ -901,7 +901,7 @@ async function callClaude(messages, system) {
   if (!state.apiKey) throw new Error('no_api_key');
   const controller = new AbortController();
   const tid = setTimeout(() => controller.abort(), 60000);
- const res = await fetch('https://cors-anywhere.herokuapp.com/https://api.anthropic.com/v1/messages', {
+const res = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST', signal:controller.signal,
     headers:{
       'Content-Type':'application/json',
