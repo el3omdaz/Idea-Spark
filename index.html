@@ -109,7 +109,7 @@ body{font-family:var(--fn)}
 }
 .idea-card:active{border-color:var(--border2);transform:scale(.99)}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
-.card-title覆{font-size:15px;font-weight:700;line-height:1.35}
+.card-title{font-size:15px;font-weight:700;line-height:1.35}
 .card-desc{font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.5;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-footer{display:flex;align-items:center;justify-content:space-between}
@@ -265,6 +265,7 @@ body{font-family:var(--fn)}
 </head>
 <body>
 <div class="app">
+  <!-- Header -->
   <div class="hdr">
     <div class="hdr-inner">
       <div class="logo">
@@ -278,14 +279,17 @@ body{font-family:var(--fn)}
     </div>
   </div>
 
+  <!-- Content -->
   <div class="content" id="content">
 
+    <!-- LIST -->
     <div class="screen active" id="screen-list">
       <input class="search-box" id="search-input" placeholder="ابحث..." oninput="renderList()">
       <div class="chips" id="filter-chips"></div>
       <div id="ideas-grid"></div>
     </div>
 
+    <!-- NEW -->
     <div class="screen" id="screen-new">
       <div class="form-view">
         <div>
@@ -315,6 +319,7 @@ body{font-family:var(--fn)}
       </div>
     </div>
 
+    <!-- DETAIL -->
     <div class="screen" id="screen-detail">
       <button class="back-btn" onclick="nav('list')"><span id="back-arrow">→</span> <span id="back-txt">رجوع</span></button>
       <div id="detail-title" class="detail-title"></div>
@@ -350,6 +355,7 @@ body{font-family:var(--fn)}
       </div>
     </div>
 
+    <!-- SETTINGS -->
     <div class="screen" id="screen-settings">
       <div class="settings-title" id="settings-title-txt">⚙️ الإعدادات</div>
 
@@ -363,7 +369,7 @@ body{font-family:var(--fn)}
           </div>
           <div id="api-key-input-state">
             <div style="display:flex;gap:8px;margin-top:8px">
-              <input class="input" id="api-key-input" type="password" placeholder="sk-ant-..." autocomplete="off"
+              <input class="input" id="api-key-input" type="password" placeholder="AIza..." autocomplete="off"
                 style="flex:1;padding:11px 13px;font-size:13px;font-family:monospace" oninput="document.getElementById('save-key-btn').disabled=!this.value.trim()">
               <button class="btn btn-primary btn-sm" id="save-key-btn" onclick="saveApiKey()" disabled>حفظ</button>
             </div>
@@ -372,10 +378,10 @@ body{font-family:var(--fn)}
         <div class="srow-block">
           <button onclick="toggleApiHelp()" style="background:none;border:none;color:var(--accent);font-family:var(--fn);font-size:13px;font-weight:600;cursor:pointer;padding:0" id="api-help-btn">كيف أحصل على المفتاح؟ ▼</button>
           <div class="api-help-steps hidden" id="api-help-content">
-            <div class="api-step" id="step1">1. افتح <a class="api-link" href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
-            <div class="api-step" id="step2">2. من القائمة اختر «API Keys»</div>
-            <div class="api-step" id="step3">3. اضغط «Create Key» وانسخ المفتاح</div>
-            <div class="api-step" id="step4">4. الصقه هنا — التوكنز ستُحتسب من حسابك</div>
+            <div class="api-step" id="step1">1. افتح <a class="api-link" href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></div>
+            <div class="api-step" id="step2">2. اضغط «Create API Key»</div>
+            <div class="api-step" id="step3">3. انسخ المفتاح (يبدأ بـ AIza)</div>
+            <div class="api-step" id="step4">4. الصقه هنا — مجاني بدون بطاقة ✓</div>
           </div>
         </div>
       </div>
@@ -426,7 +432,10 @@ body{font-family:var(--fn)}
       </div>
     </div>
 
-  </div><div class="bottom-nav" id="bottom-nav">
+  </div><!-- /content -->
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav" id="bottom-nav">
     <button class="nav-btn active" id="nav-list" onclick="nav('list')">
       <span class="nav-icon">📋</span>
       <span id="nav-list-txt">أفكاري</span>
@@ -439,6 +448,7 @@ body{font-family:var(--fn)}
   </div>
 </div>
 
+<!-- Delete Modal -->
 <div class="overlay hidden" id="delete-modal">
   <div class="modal">
     <h3>🗑️ <span id="delete-modal-title">حذف هذه الفكرة؟</span></h3>
@@ -502,12 +512,12 @@ const T = {
     you:'أنت', ai:'الذكاء الاصطناعي',
     noApiKey:'⚠️ أدخل مفتاح API من الإعدادات أولاً', goSettings:'الإعدادات',
     analysisOff:'التحليل التلقائي معطّل — يمكنك التحليل يدوياً',
-    apiSection:'مفتاح API الشخصي', apiLabel:'مفتاح Anthropic API',
+    apiSection:'مفتاح API الشخصي', apiLabel:'مفتاح Gemini API',
     apiSave:'حفظ', apiClear:'حذف المفتاح', apiStatus:'المفتاح محفوظ على جهازك فقط ✓',
     apiHelp:'كيف أحصل على المفتاح؟', apiHelpOpen:'كيف أحصل على المفتاح؟ ▲', apiHelpClose:'كيف أحصل على المفتاح؟ ▼',
-    step1:'1. افتح', step2:'2. من القائمة اختر «API Keys»',
-    step3:'3. اضغط «Create Key» وانسخ المفتاح',
-    step4:'4. الصقه هنا — التوكنز ستُحتسب من حسابك',
+    step1:'1. افتح', step2:'2. اضغط «Create API Key»',
+    step3:'3. انسخ المفتاح (يبدأ بـ AIza)',
+    step4:'4. الصقه هنا — مجاني بدون بطاقة ✓',
     aiModeLabel:'وضع الذكاء الاصطناعي',
     modeAutoLabel:'تحليل تلقائي عند الحفظ', modeAutoDesc:'بعد حفظ الفكرة يبدأ التحليل فوراً',
     modeManualLabel:'دفتر ملاحظات فقط', modeManualDesc:'احفظ أفكارك كما هي، التحليل اختياري',
@@ -535,12 +545,12 @@ const T = {
     you:'You', ai:'AI',
     noApiKey:'⚠️ Add your API key in Settings first', goSettings:'Settings',
     analysisOff:'Auto-analysis is off — you can still analyze manually',
-    apiSection:'Personal API Key', apiLabel:'Anthropic API Key',
+    apiSection:'Personal API Key', apiLabel:'Gemini API Key',
     apiSave:'Save', apiClear:'Remove Key', apiStatus:'Key stored on your device only ✓',
     apiHelp:'How to get a key?', apiHelpOpen:'How to get a key? ▲', apiHelpClose:'How to get a key? ▼',
-    step1:'1. Go to', step2:'2. Click «API Keys» from the menu',
-    step3:'3. Click «Create Key» and copy it',
-    step4:'4. Paste it here — tokens charge to your account',
+    step1:'1. Go to', step2:'2. Click «Create API Key»',
+    step3:'3. Copy the key (starts with AIza)',
+    step4:'4. Paste it here — free, no card needed ✓',
     aiModeLabel:'AI Mode',
     modeAutoLabel:'Auto-analyze on save', modeAutoDesc:'Analysis starts immediately after saving',
     modeManualLabel:'Notebook only', modeManualDesc:'Save ideas as-is, analysis is optional',
@@ -677,9 +687,9 @@ function applyLang() {
   setText('country-desc', tr.countryDesc); $('country-input').placeholder = tr.countryPH;
   setText('lbl-custom-types', tr.customTypesLabel);
   setText('clear-types-btn', tr.clearAll);
-  setText('noneYet', tr.noneYet);
   setText('step2', tr.step2); setText('step3', tr.step3); setText('step4', tr.step4);
-  $('step1').innerHTML = `${tr.step1} <a class="api-link" href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>`;
+  // step1 has a link — handle separately
+  $('step1').innerHTML = `${tr.step1} <a class="api-link" href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>`;
 
   // Modal
   setText('delete-modal-title', tr.deleteConfirm);
@@ -692,6 +702,7 @@ function applyLang() {
 // ═══════════════════════════════════════════════════
 function renderList() {
   const tr = t();
+  // Filter chips
   const chips = $('filter-chips');
   const filters = [
     { val:'all', label: tr.all },
@@ -836,6 +847,7 @@ function renderDetailAI() {
   const hasKey = !!state.apiKey;
   const hasAnalysis = state.aiAnalysis && !state.aiAnalysis.startsWith('❌') && !state.aiAnalysis.startsWith('⚠️');
 
+  // banners
   if (!hasKey) { show('no-key-banner'); hide('analysis-off-banner'); hide('ai-btns'); }
   else {
     hide('no-key-banner');
@@ -844,19 +856,23 @@ function renderDetailAI() {
     show('ai-btns');
   }
 
+  // buttons
   setText('analyze-btn', state.loadingAnalysis ? tr.analyzing : (state.aiAnalysis ? tr.retry : tr.analyze));
   $('analyze-btn').disabled = state.loadingAnalysis;
   $('plan-btn').disabled = state.loadingPlan || !hasAnalysis;
   setText('plan-btn', state.loadingPlan ? tr.building : tr.plan);
 
+  // analysis card
   if (state.aiAnalysis) {
     $('ai-analysis-text').innerHTML = formatAI(state.aiAnalysis);
     show('ai-analysis-card');
   } else hide('ai-analysis-card');
 
+  // chat
   if (hasAnalysis && !state.loadingAnalysis) show('chat-section');
   else hide('chat-section');
 
+  // plan
   if (state.aiPlan) {
     $('ai-plan-text').innerHTML = formatAI(state.aiPlan);
     show('ai-plan-card');
@@ -879,52 +895,45 @@ function renderChat() {
 }
 
 // ═══════════════════════════════════════════════════
-// CLAUDE API (تم دمج البروكسي هنا وتحديث إعداداته)
+// CLAUDE API
 // ═══════════════════════════════════════════════════
 async function callClaude(messages, system) {
   if (!state.apiKey) throw new Error('no_api_key');
   const controller = new AbortController();
   const tid = setTimeout(() => controller.abort(), 60000);
 
-  // استخدام البروكسي المستقر لتجاوز حظر الـ CORS تماماً في المتصفح
-  const targetUrl = 'https://api.anthropic.com/v1/messages';
-  const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(targetUrl);
+  // Convert messages format to Gemini format
+  const geminiContents = messages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }]
+  }));
 
-  try {
-    const res = await fetch(proxyUrl, {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': state.apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({ 
-        model: 'claude-sonnet-4-20250514', 
-        max_tokens: 1200, 
-        system: system, 
-        messages: messages 
-      }),
+  // Prepend system instruction as first user message if exists
+  if (system) {
+    geminiContents.unshift({
+      role: 'user',
+      parts: [{ text: system }]
+    }, {
+      role: 'model',
+      parts: [{ text: 'Understood.' }]
     });
-
-    clearTimeout(tid);
-
-    if (!res.ok) {
-      const e = await res.json().catch(() => ({}));
-      throw new Error(e?.error?.message || 'HTTP ' + res.status);
-    }
-
-    const data = await res.json();
-    const text = data.content?.[0]?.text || '';
-    if (!text) throw new Error('empty_response');
-    return text;
-
-  } catch (err) {
-    clearTimeout(tid);
-    console.error("API Call Error:", err);
-    throw err;
   }
+
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${state.apiKey}`, {
+    method: 'POST',
+    signal: controller.signal,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: geminiContents,
+      generationConfig: { maxOutputTokens: 1200 }
+    }),
+  });
+  clearTimeout(tid);
+  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e?.error?.message || 'HTTP ' + res.status); }
+  const data = await res.json();
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  if (!text) throw new Error('empty_response');
+  return text;
 }
 
 async function triggerAnalysis() {
@@ -934,6 +943,7 @@ async function triggerAnalysis() {
   state.loadingAnalysis = true; state.aiAnalysis = ''; state.chatHistory = [];
   renderDetailAI(); renderChat();
 
+  // pulse
   let dots = 0;
   const pulse = setInterval(() => {
     dots = (dots%3)+1;
@@ -1058,19 +1068,24 @@ function confirmDelete() {
 // SETTINGS
 // ═══════════════════════════════════════════════════
 function renderSettings() {
+  // API key state
   if (state.apiKey) { show('api-key-saved-state'); hide('api-key-input-state'); }
   else { hide('api-key-saved-state'); show('api-key-input-state'); }
   $('api-key-input').value = '';
   $('save-key-btn').disabled = true;
 
+  // AI mode dots
   $('mode-auto-dot').className = 'mode-dot' + (state.settings.aiAuto ? ' sel' : '');
   $('mode-manual-dot').className = 'mode-dot' + (!state.settings.aiAuto ? ' sel' : '');
 
+  // Lang buttons
   $('lang-ar').className = 'lang-opt' + (state.settings.lang==='ar' ? ' active' : '');
   $('lang-en').className = 'lang-opt' + (state.settings.lang==='en' ? ' active' : '');
 
+  // Country
   $('country-input').value = state.settings.country;
 
+  // Custom types
   if (state.customTypes.length) {
     $('custom-types-display').textContent = state.customTypes.join(' · ');
     show('clear-types-btn');
