@@ -23,6 +23,166 @@
 }
 html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden}
 body{font-family:var(--fn)}
+
+/* ── Splash Screen ── */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 32px 32px;
+  transition:opacity .6s ease, transform .6s ease;
+  overflow:hidden;
+}
+#splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+
+/* Ambient glows */
+.splash-glow-top{
+  position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle, rgba(123,108,240,.18) 0%, transparent 68%);
+  pointer-events:none;
+}
+.splash-glow-bottom{
+  position:absolute;bottom:-100px;right:-60px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle, rgba(15,217,160,.10) 0%, transparent 68%);
+  pointer-events:none;
+}
+
+/* Logo */
+.splash-logo-wrap{
+  position:relative;margin-bottom:32px;
+}
+.splash-logo-outer{
+  width:120px;height:120px;border-radius:34px;
+  background:linear-gradient(135deg,#7b6cf0,#0fd9a0);
+  padding:2.5px;
+  box-shadow:0 0 0 1px rgba(123,108,240,.2), 0 24px 72px rgba(123,108,240,.4);
+  animation:splashPulse 3.5s ease-in-out infinite;
+}
+.splash-logo-inner{
+  width:100%;height:100%;border-radius:32px;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+}
+.splash-logo-svg{width:62px;height:62px;}
+
+@keyframes splashPulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(123,108,240,.2),0 24px 72px rgba(123,108,240,.38)}
+  50%{box-shadow:0 0 0 1px rgba(123,108,240,.45),0 28px 80px rgba(123,108,240,.55)}
+}
+
+/* Name */
+.splash-name{
+  font-size:46px;font-weight:800;letter-spacing:-2px;
+  line-height:1;text-align:center;margin-bottom:12px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.splash-name .part1{
+  background:linear-gradient(135deg,#a78bfa,#7b6cf0);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.splash-name .part2{
+  background:linear-gradient(135deg,#0fd9a0,#06b6d4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* Tagline */
+.splash-tagline{
+  font-size:14.5px;color:var(--text2);text-align:center;
+  line-height:1.65;max-width:255px;margin-bottom:40px;
+  font-weight:500;
+}
+.splash-tagline strong{
+  color:#0fd9a0;font-weight:700;
+}
+
+/* Divider */
+.splash-divider{
+  width:1px;height:32px;
+  background:linear-gradient(to bottom,transparent,var(--border2),transparent);
+  margin-bottom:28px;
+}
+
+.splash-social.snap:hover{border-color:#FFFC00;background:rgba(255,252,0,.08);transform:translateY(-3px);}
+.splash-social.xtwt:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);transform:translateY(-3px);}
+.splash-social.insta:hover{border-color:#e1306c;background:rgba(225,48,108,.08);transform:translateY(-3px);}
+.splash-social.fb:hover{border-color:#1877F2;background:rgba(24,119,242,.08);transform:translateY(-3px);}
+
+/* Creator */
+.splash-creator{
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  color:var(--text3);text-transform:uppercase;margin-bottom:18px;
+  text-align:center;
+}
+.splash-creator em{
+  font-style:normal;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:800;letter-spacing:2px;
+}
+
+/* Socials */
+.splash-socials{
+  display:flex;gap:10px;align-items:center;margin-bottom:44px;flex-wrap:nowrap;
+}
+.splash-social{
+  width:68px;border-radius:16px;
+  border:1px solid var(--border2);background:var(--s1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  padding:10px 6px 8px;
+  text-decoration:none;
+  transition:all .22s;
+  position:relative;overflow:hidden;
+}
+.splash-social::before{
+  content:'';position:absolute;inset:0;opacity:0;transition:opacity .22s;
+}
+.splash-social:active{transform:scale(.9);}
+.splash-social svg{width:22px;height:22px;display:block;}
+.splash-social-name{
+  font-size:9px;font-weight:700;letter-spacing:.3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:60px;text-align:center;
+}
+
+/* Snapchat */
+.splash-social.snap svg{fill:#FFFC00;}
+.splash-social.snap .splash-social-name{color:#FFFC00;}
+.splash-social.snap:active{border-color:#FFFC00;background:rgba(255,252,0,.08);}
+/* X */
+.splash-social.xtwt svg{fill:#fff;}
+.splash-social.xtwt .splash-social-name{color:#aaa;}
+.splash-social.xtwt:active{border-color:#fff;background:rgba(255,255,255,.08);}
+/* Instagram */
+.splash-social.insta svg{fill:url(#igGrad);}
+.splash-social.insta .splash-social-name{
+  background:linear-gradient(90deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.splash-social.insta:active{border-color:#e1306c;background:rgba(225,48,108,.08);}
+/* Facebook */
+.splash-social.fb svg{fill:#1877F2;}
+.splash-social.fb .splash-social-name{color:#1877F2;}
+.splash-social.fb:active{border-color:#1877F2;background:rgba(24,119,242,.08);}
+
+/* Enter button */
+.splash-enter{
+  width:100%;max-width:290px;
+  padding:17px;border-radius:18px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent) 0%,#9b6cf0 100%);
+  color:#fff;font-family:var(--fn);font-size:16px;font-weight:700;
+  box-shadow:0 10px 32px rgba(123,108,240,.45);
+  transition:all .22s;letter-spacing:.2px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.splash-enter:active{transform:scale(.97);box-shadow:0 5px 18px rgba(123,108,240,.3);}
+.splash-enter-arrow{font-size:20px;transition:transform .22s;}
+.splash-enter:active .splash-enter-arrow{transform:translateX(4px);}
+
+.splash-version{
+  margin-top:14px;font-size:10px;color:var(--text3);letter-spacing:1px;
+}
 .app{
   max-width:430px;height:100vh;height:100dvh;
   margin:0 auto;background:var(--bg);
@@ -170,10 +330,10 @@ body{font-family:var(--fn)}
 .detail-title{font-size:23px;font-weight:800;line-height:1.3;margin-bottom:8px;letter-spacing:-.3px}
 .detail-desc{color:var(--text2);font-size:14px;line-height:1.65;margin-bottom:12px}
 .detail-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
-.ai-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:14px}
-.ai-card-title{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
-.ai-text{font-size:13px;line-height:1.75;color:var(--text2)}
-.ai-text h4{color:var(--text);font-size:13px;font-weight:700;margin:12px 0 6px}
+.ai-card{background:var(--s1);border:1px solid rgba(15,217,160,.18);border-radius:var(--r);padding:16px;margin-top:14px;box-shadow:0 0 20px rgba(15,217,160,.05)}
+.ai-card-title{font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:.8px}
+.ai-text{font-size:13px;line-height:1.85;color:#c8d8f0}
+.ai-text h4{color:#e8f4ff;font-size:13px;font-weight:700;margin:12px 0 6px}
 .ai-text li{margin-bottom:3px;padding-inline-start:16px}
 .ai-text p{margin-bottom:3px}
 .no-key-banner{
@@ -183,14 +343,14 @@ body{font-family:var(--fn)}
 }
 .analysis-off{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:14px}
 /* Chat */
-.chat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin-top:14px;overflow:hidden}
-.chat-hdr{padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px}
+.chat-card{background:var(--s1);border:1px solid rgba(123,108,240,.2);border-radius:var(--r);margin-top:14px;overflow:hidden;box-shadow:0 0 20px rgba(123,108,240,.05)}
+.chat-hdr{padding:12px 16px;border-bottom:1px solid rgba(15,217,160,.15);font-size:12px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.8px}
 .chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:10px;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .bubble{max-width:84%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6}
-.bubble.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.bubble.ai-bubble{background:var(--s2);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
+.bubble.user{background:linear-gradient(135deg,var(--accent),#9b6cf0);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;box-shadow:0 2px 12px rgba(123,108,240,.3)}
+.bubble.ai-bubble{background:rgba(15,217,160,.08);color:#b8e8d8;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid rgba(15,217,160,.2)}
 .bubble-label{font-size:10px;font-weight:700;opacity:.6;margin-bottom:3px;letter-spacing:.4px}
-.chat-thinking{align-self:flex-start;color:var(--text3);font-size:13px;font-style:italic;padding:6px 0}
+.chat-thinking{align-self:flex-start;color:var(--accent2);font-size:13px;font-style:italic;padding:6px 0;opacity:.7}
 .chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
 .chat-input{
   flex:1;background:var(--s2);border:1px solid var(--border);
@@ -264,6 +424,105 @@ body{font-family:var(--fn)}
 </style>
 </head>
 <body>
+<!-- ═══ SPLASH SCREEN ═══ -->
+<div id="splash">
+  <div class="splash-glow-top"></div>
+  <div class="splash-glow-bottom"></div>
+
+  <!-- SVG defs for Instagram gradient -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#f09433"/>
+        <stop offset="25%" stop-color="#e6683c"/>
+        <stop offset="50%" stop-color="#dc2743"/>
+        <stop offset="75%" stop-color="#cc2366"/>
+        <stop offset="100%" stop-color="#bc1888"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Logo -->
+  <div class="splash-logo-wrap">
+    <div class="splash-logo-outer">
+      <div class="splash-logo-inner">
+        <svg class="splash-logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bulb body -->
+          <path d="M32 8C22.06 8 14 16.06 14 26c0 6.48 3.38 12.18 8.5 15.5V46a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2v-4.5C46.62 38.18 50 32.48 50 26 50 16.06 41.94 8 32 8z" fill="url(#bulbGrad)"/>
+          <!-- Filament lines -->
+          <path d="M27 48h10M28 52h8" stroke="#0fd9a0" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Shine -->
+          <path d="M22 20c2-4 6-6.5 10-6.5" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Spark dots -->
+          <circle cx="50" cy="14" r="2.5" fill="#0fd9a0" opacity=".9"/>
+          <circle cx="56" cy="22" r="1.5" fill="#7b6cf0" opacity=".8"/>
+          <circle cx="14" cy="14" r="2" fill="#0fd9a0" opacity=".7"/>
+          <defs>
+            <linearGradient id="bulbGrad" x1="14" y1="8" x2="50" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="100%" stop-color="#7b6cf0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- App name -->
+  <div class="splash-name">
+    <span class="part1">Idea</span><span class="part2">Spark</span>
+  </div>
+
+  <!-- Tagline -->
+  <div class="splash-tagline">
+    فكرتك تستحق أن تُرى<br>
+    <strong>حوّلها إلى مشروع حقيقي</strong> بقوة الذكاء الاصطناعي
+  </div>
+
+  <div class="splash-divider"></div>
+
+  <!-- Creator -->
+  <div class="splash-creator">Created by &nbsp;<em>M. ALQATTAN</em></div>
+
+  <!-- Social icons -->
+  <div class="splash-socials">
+    <!-- Snapchat -->
+    <a class="splash-social snap" href="https://www.snapchat.com/add/QoooLxxxZ" target="_blank" title="Snapchat: QoooLxxxZ">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.003 2c-2.756 0-5.6 1.56-5.6 5.42v1.42c-.37-.07-.77.08-.97.4-.3.5-.14 1.14.36 1.44-.1.28-.23.55-.38.81a6.4 6.4 0 0 1-.56.79c-.3.32-.4.8-.18 1.18.2.36.6.5 1.02.45.25-.04.5-.1.74-.17.04.15.05.32.02.5-.12.74-.8 1.08-1.6 1.42-.27.12-.28.5.28.73.73.3 1.32.33 1.6.78.2.32.1.63.47.65.4.02.78-.15 1.2-.15.35 0 .68.1 1.05.28.5.26 1.05.38 1.61.38.56 0 1.1-.12 1.6-.38.37-.18.7-.28 1.05-.28.42 0 .8.17 1.2.15.37-.02.27-.33.47-.65.28-.45.87-.48 1.6-.78.56-.23.55-.61.28-.73-.8-.34-1.48-.68-1.6-1.42a1.5 1.5 0 0 1 .02-.5c.24.07.49.13.74.17.42.05.82-.09 1.02-.45.22-.38.12-.86-.18-1.18a6.4 6.4 0 0 1-.56-.79c-.15-.26-.28-.53-.38-.81.5-.3.66-.94.36-1.44-.2-.32-.6-.47-.97-.4V7.42C17.603 3.56 14.759 2 12.003 2z"/>
+      </svg>
+      <span class="splash-social-name">QoooLxxxZ</span>
+    </a>
+    <!-- X (Twitter) -->
+    <a class="splash-social xtwt" href="https://x.com/Qooolxxx" target="_blank" title="X: @Qooolxxx">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+      </svg>
+      <span class="splash-social-name">@Qooolxxx</span>
+    </a>
+    <!-- Instagram -->
+    <a class="splash-social insta" href="https://instagram.com/QoooLxxx" target="_blank" title="Instagram: @QoooLxxx">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      <span class="splash-social-name">@QoooLxxx</span>
+    </a>
+    <!-- Facebook -->
+    <a class="splash-social fb" href="https://www.facebook.com/share/1F5ecZv453/?mibextid=wwXIfr" target="_blank" title="Facebook">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+      <span class="splash-social-name">Facebook</span>
+    </a>
+  </div>
+
+  <!-- Enter button -->
+  <button class="splash-enter" onclick="enterApp()">
+    ابدأ الآن <span class="splash-enter-arrow">→</span>
+  </button>
+  <div class="splash-version">v2.1 · Powered by OpenRouter</div>
+</div>
+
 <div class="app">
   <!-- Header -->
   <div class="hdr">
@@ -348,6 +607,16 @@ body{font-family:var(--fn)}
           <textarea class="chat-input" id="chat-input" rows="1" placeholder="اكتب ردك..."></textarea>
           <button class="chat-send" id="chat-send-btn" onclick="sendChat()">➤</button>
         </div>
+        <div style="padding:8px 12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end">
+          <button class="btn btn-sm btn-outline" id="finish-chat-btn" onclick="finishChat()" style="font-size:12px">✅ إنهاء وحفظ الملخص</button>
+        </div>
+      </div>
+      <div id="chat-summary-card" class="ai-card hidden">
+        <div class="ai-card-title">💡 ملخص المحادثة</div>
+        <div class="ai-text" id="chat-summary-text"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-sm btn-outline" onclick="reopenChat()" id="reopen-chat-btn" style="font-size:12px">💬 فتح المحادثة</button>
+        </div>
       </div>
       <div id="ai-plan-card" class="ai-card hidden">
         <div class="ai-card-title" id="plan-card-title">🗺️ خطة التنفيذ</div>
@@ -369,7 +638,7 @@ body{font-family:var(--fn)}
           </div>
           <div id="api-key-input-state">
             <div style="display:flex;gap:8px;margin-top:8px">
-              <input class="input" id="api-key-input" type="password" placeholder="AIza..." autocomplete="off"
+              <input class="input" id="api-key-input" type="password" placeholder="sk-or-..." autocomplete="off"
                 style="flex:1;padding:11px 13px;font-size:13px;font-family:monospace" oninput="document.getElementById('save-key-btn').disabled=!this.value.trim()">
               <button class="btn btn-primary btn-sm" id="save-key-btn" onclick="saveApiKey()" disabled>حفظ</button>
             </div>
@@ -378,7 +647,7 @@ body{font-family:var(--fn)}
         <div class="srow-block">
           <button onclick="toggleApiHelp()" style="background:none;border:none;color:var(--accent);font-family:var(--fn);font-size:13px;font-weight:600;cursor:pointer;padding:0" id="api-help-btn">كيف أحصل على المفتاح؟ ▼</button>
           <div class="api-help-steps hidden" id="api-help-content">
-            <div class="api-step" id="step1">1. افتح <a class="api-link" href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></div>
+            <div class="api-step" id="step1">1. افتح <a class="api-link" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></div>
             <div class="api-step" id="step2">2. اضغط «Create API Key»</div>
             <div class="api-step" id="step3">3. انسخ المفتاح (يبدأ بـ AIza)</div>
             <div class="api-step" id="step4">4. الصقه هنا — مجاني بدون بطاقة ✓</div>
@@ -386,8 +655,12 @@ body{font-family:var(--fn)}
         </div>
       </div>
 
-      <div class="section-label" id="lbl-ai-mode">وضع الذكاء الاصطناعي</div>
-      <div class="section">
+      <div class="section-label" id="lbl-model-section">النموذج</div>
+      <div class="section" id="model-section">
+        <div id="model-list"></div>
+      </div>
+
+      <div class="section-label" id="lbl-ai-mode">وضع الذكاء الاصطناعي</div>      <div class="section">
         <div class="mode-option" onclick="setAiMode(true)">
           <div>
             <div class="slabel" id="mode-auto-label">تحليل تلقائي عند الحفظ</div>
@@ -466,7 +739,18 @@ body{font-family:var(--fn)}
 // ═══════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════
-const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v2', types:'ispark_custom_types', api:'ispark_api_key' };
+const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v2', types:'ispark_custom_types', api:'ispark_api_key', model:'ispark_model' };
+
+const MODELS = [
+  { id:'google/gemini-2.0-flash-001',      label:'Gemini 2.0 Flash',       badge:'⚡ سريع ومجاني' },
+  { id:'google/gemini-2.5-pro',            label:'Gemini 2.5 Pro',          badge:'🧠 ذكي جداً' },
+  { id:'google/gemini-3-flash-preview',    label:'Gemini 3 Flash',          badge:'🆕 جديد' },
+  { id:'google/gemini-3.5-flash',          label:'Gemini 3.5 Flash',        badge:'🔥 الأحدث' },
+  { id:'anthropic/claude-sonnet-4-5',      label:'Claude Sonnet 4.5',       badge:'✍️ كتابة ممتازة' },
+  { id:'openai/gpt-4o-mini',              label:'GPT-4o Mini',             badge:'💰 اقتصادي' },
+  { id:'openai/gpt-4o',                   label:'GPT-4o',                  badge:'🎯 دقيق' },
+  { id:'meta-llama/llama-3.3-70b-instruct', label:'Llama 3.3 70B',         badge:'🆓 مجاني' },
+];
 
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
 const persist = (k, v) => localStorage.setItem(k, JSON.stringify(v));
@@ -476,6 +760,7 @@ let state = {
   settings: load(KEYS.settings, { lang:'ar', country:'', aiAuto:true }),
   customTypes: load(KEYS.types, []),
   apiKey: localStorage.getItem(KEYS.api) || '',
+  selectedModel: localStorage.getItem(KEYS.model) || 'google/gemini-2.0-flash-001',
   currentView: 'list',
   filter: 'all',
   search: '',
@@ -485,9 +770,11 @@ let state = {
   aiAnalysis: '',
   aiPlan: '',
   chatHistory: [],
+  chatSummary: '',
   loadingAnalysis: false,
   loadingPlan: false,
   loadingChat: false,
+  loadingSummary: false,
 };
 
 // ═══════════════════════════════════════════════════
@@ -512,12 +799,13 @@ const T = {
     you:'أنت', ai:'الذكاء الاصطناعي',
     noApiKey:'⚠️ أدخل مفتاح API من الإعدادات أولاً', goSettings:'الإعدادات',
     analysisOff:'التحليل التلقائي معطّل — يمكنك التحليل يدوياً',
-    apiSection:'مفتاح API الشخصي', apiLabel:'مفتاح Gemini API',
+    apiSection:'مفتاح API الشخصي', apiLabel:'مفتاح OpenRouter API',
     apiSave:'حفظ', apiClear:'حذف المفتاح', apiStatus:'المفتاح محفوظ على جهازك فقط ✓',
     apiHelp:'كيف أحصل على المفتاح؟', apiHelpOpen:'كيف أحصل على المفتاح؟ ▲', apiHelpClose:'كيف أحصل على المفتاح؟ ▼',
-    step1:'1. افتح', step2:'2. اضغط «Create API Key»',
-    step3:'3. انسخ المفتاح (يبدأ بـ AIza)',
-    step4:'4. الصقه هنا — مجاني بدون بطاقة ✓',
+    step1:'1. افتح', step2:'2. سجّل دخول واضغط «Create Key»',
+    step3:'3. انسخ المفتاح (يبدأ بـ sk-or-)',
+    step4:'4. الصقه هنا',
+    modelLabel:'النموذج',
     aiModeLabel:'وضع الذكاء الاصطناعي',
     modeAutoLabel:'تحليل تلقائي عند الحفظ', modeAutoDesc:'بعد حفظ الفكرة يبدأ التحليل فوراً',
     modeManualLabel:'دفتر ملاحظات فقط', modeManualDesc:'احفظ أفكارك كما هي، التحليل اختياري',
@@ -545,12 +833,13 @@ const T = {
     you:'You', ai:'AI',
     noApiKey:'⚠️ Add your API key in Settings first', goSettings:'Settings',
     analysisOff:'Auto-analysis is off — you can still analyze manually',
-    apiSection:'Personal API Key', apiLabel:'Gemini API Key',
+    apiSection:'Personal API Key', apiLabel:'OpenRouter API Key',
     apiSave:'Save', apiClear:'Remove Key', apiStatus:'Key stored on your device only ✓',
     apiHelp:'How to get a key?', apiHelpOpen:'How to get a key? ▲', apiHelpClose:'How to get a key? ▼',
-    step1:'1. Go to', step2:'2. Click «Create API Key»',
-    step3:'3. Copy the key (starts with AIza)',
-    step4:'4. Paste it here — free, no card needed ✓',
+    step1:'1. Go to', step2:'2. Sign in and click «Create Key»',
+    step3:'3. Copy the key (starts with sk-or-)',
+    step4:'4. Paste it here',
+    modelLabel:'Model',
     aiModeLabel:'AI Mode',
     modeAutoLabel:'Auto-analyze on save', modeAutoDesc:'Analysis starts immediately after saving',
     modeManualLabel:'Notebook only', modeManualDesc:'Save ideas as-is, analysis is optional',
@@ -689,7 +978,7 @@ function applyLang() {
   setText('clear-types-btn', tr.clearAll);
   setText('step2', tr.step2); setText('step3', tr.step3); setText('step4', tr.step4);
   // step1 has a link — handle separately
-  $('step1').innerHTML = `${tr.step1} <a class="api-link" href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>`;
+  $('step1').innerHTML = `${tr.step1} <a class="api-link" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>`;
 
   // Modal
   setText('delete-modal-title', tr.deleteConfirm);
@@ -808,7 +1097,7 @@ function doSave() {
     id: Date.now().toString(),
     title, description: $('idea-desc-input').value.trim(),
     category: finalCat, createdAt: new Date().toISOString(),
-    analysis:'', plan:'', chatHistory:[],
+    analysis:'', plan:'', chatHistory:[], chatSummary:'',
   };
   state.ideas.unshift(idea);
   persist(KEYS.ideas, state.ideas);
@@ -827,9 +1116,11 @@ function openIdea(id) {
   state.aiAnalysis = idea.analysis || '';
   state.aiPlan = idea.plan || '';
   state.chatHistory = idea.chatHistory || [];
+  state.chatSummary = idea.chatSummary || '';
   state.loadingAnalysis = false;
   state.loadingPlan = false;
   state.loadingChat = false;
+  state.loadingSummary = false;
 
   $('detail-title').textContent = idea.title;
   if (idea.description) { $('detail-desc').textContent = idea.description; show('detail-desc'); }
@@ -868,9 +1159,23 @@ function renderDetailAI() {
     show('ai-analysis-card');
   } else hide('ai-analysis-card');
 
-  // chat
-  if (hasAnalysis && !state.loadingAnalysis) show('chat-section');
-  else hide('chat-section');
+  // chat & summary
+  if (hasAnalysis && !state.loadingAnalysis) {
+    if (state.chatSummary) {
+      hide('chat-section');
+      $('chat-summary-text').innerHTML = formatAI(state.chatSummary);
+      show('chat-summary-card');
+    } else {
+      show('chat-section');
+      hide('chat-summary-card');
+    }
+  } else {
+    hide('chat-section');
+    hide('chat-summary-card');
+  }
+  // finish chat button visibility
+  const finishBtn = $('finish-chat-btn');
+  if (finishBtn) finishBtn.style.display = state.chatHistory.length >= 2 ? '' : 'none';
 
   // plan
   if (state.aiPlan) {
@@ -902,36 +1207,27 @@ async function callClaude(messages, system) {
   const controller = new AbortController();
   const tid = setTimeout(() => controller.abort(), 60000);
 
-  // Convert messages format to Gemini format
-  const geminiContents = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }]
-  }));
-
-  // Prepend system instruction as first user message if exists
-  if (system) {
-    geminiContents.unshift({
-      role: 'user',
-      parts: [{ text: system }]
-    }, {
-      role: 'model',
-      parts: [{ text: 'Understood.' }]
-    });
-  }
-
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${state.apiKey}`, {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     signal: controller.signal,
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${state.apiKey}`,
+      'HTTP-Referer': 'https://idea-spark.app',
+      'X-Title': 'Idea Spark'
+    },
     body: JSON.stringify({
-      contents: geminiContents,
-      generationConfig: { maxOutputTokens: 1200 }
+      model: state.selectedModel,
+      max_tokens: 1200,
+      messages: system
+        ? [{ role: 'system', content: system }, ...messages]
+        : messages
     }),
   });
   clearTimeout(tid);
   if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e?.error?.message || 'HTTP ' + res.status); }
   const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  const text = data.choices?.[0]?.message?.content || '';
   if (!text) throw new Error('empty_response');
   return text;
 }
@@ -940,7 +1236,7 @@ async function triggerAnalysis() {
   const idea = state.ideas.find(i => i.id === state.selectedId);
   if (!idea) return;
   const tr = t();
-  state.loadingAnalysis = true; state.aiAnalysis = ''; state.chatHistory = [];
+  state.loadingAnalysis = true; state.aiAnalysis = ''; state.chatHistory = []; state.chatSummary = '';
   renderDetailAI(); renderChat();
 
   // pulse
@@ -1010,6 +1306,48 @@ async function triggerPlan() {
   renderDetailAI();
 }
 
+async function finishChat() {
+  const idea = state.ideas.find(i => i.id === state.selectedId);
+  if (!idea || state.chatHistory.length < 2) return;
+  const isAr = state.settings.lang === 'ar';
+  const finishBtn = $('finish-chat-btn');
+  if (finishBtn) { finishBtn.disabled = true; finishBtn.textContent = isAr ? '⏳ جاري الحفظ...' : '⏳ Saving...'; }
+
+  const system = isAr
+    ? 'أنت مساعد ملخص. اكتب بالعربية.'
+    : 'You are a summarizer assistant.';
+
+  const chatText = state.chatHistory.map(m =>
+    (m.role === 'user' ? (isAr ? 'المستخدم: ' : 'User: ') : (isAr ? 'المستشار: ' : 'Advisor: ')) + m.text
+  ).join('\n');
+
+  const prompt = isAr
+    ? `بناءً على هذه المحادثة حول الفكرة "${idea.title}":\n\n${chatText}\n\nاكتب ملخصاً موجزاً في نقاط تشمل:\n• أبرز ما كشفته المحادثة عن الفكرة\n• المقترحات النهائية\n• الخطوة التالية الموصى بها`
+    : `Based on this conversation about "${idea.title}":\n\n${chatText}\n\nWrite a brief bullet-point summary covering:\n• Key insights from the conversation\n• Final suggestions\n• Recommended next step`;
+
+  let summary;
+  try {
+    summary = await callClaude([{ role: 'user', content: prompt }], system);
+  } catch(e) {
+    summary = errMsg(e);
+  }
+
+  state.chatSummary = summary;
+  state.ideas = state.ideas.map(i => i.id === idea.id ? {...i, chatSummary: summary} : i);
+  persist(KEYS.ideas, state.ideas);
+  if (finishBtn) { finishBtn.disabled = false; finishBtn.textContent = isAr ? '✅ إنهاء وحفظ الملخص' : '✅ Finish & Save Summary'; }
+  renderDetailAI();
+}
+
+function reopenChat() {
+  const idea = state.ideas.find(i => i.id === state.selectedId);
+  if (!idea) return;
+  state.chatSummary = '';
+  state.ideas = state.ideas.map(i => i.id === idea.id ? {...i, chatSummary: ''} : i);
+  persist(KEYS.ideas, state.ideas);
+  renderDetailAI();
+}
+
 async function sendChat() {
   const msg = $('chat-input').value.trim();
   if (!msg || state.loadingChat) return;
@@ -1068,6 +1406,7 @@ function confirmDelete() {
 // SETTINGS
 // ═══════════════════════════════════════════════════
 function renderSettings() {
+  renderModelList();
   // API key state
   if (state.apiKey) { show('api-key-saved-state'); hide('api-key-input-state'); }
   else { hide('api-key-saved-state'); show('api-key-input-state'); }
@@ -1142,8 +1481,38 @@ function clearCustomTypes() {
 // INIT
 // ═══════════════════════════════════════════════════
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
+
+// ── Splash ──
+function enterApp() {
+  const splash = document.getElementById('splash');
+  splash.classList.add('hide');
+  setTimeout(() => { splash.style.display = 'none'; }, 500);
+}
+
+// ── Model Selector ──
+function renderModelList() {
+  const el = document.getElementById('model-list');
+  if (!el) return;
+  el.innerHTML = MODELS.map(m => `
+    <div class="mode-option" onclick="selectModel('${m.id}')">
+      <div>
+        <div class="slabel">${m.label}</div>
+        <div class="sdesc">${m.badge}</div>
+      </div>
+      <div class="mode-dot${state.selectedModel === m.id ? ' sel' : ''}" id="mdot-${m.id.replace(/\//g,'-')}"></div>
+    </div>
+  `).join('');
+}
+
+function selectModel(id) {
+  state.selectedModel = id;
+  localStorage.setItem(KEYS.model, id);
+  renderModelList();
+  showToast('✓ ' + (MODELS.find(m=>m.id===id)?.label || id));
+}
+
 nav('list');
 applyLang();
 </script>
