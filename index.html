@@ -456,7 +456,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
     </div>
   </div>
   <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
-  <div class="splash-ver">v3.0 · Powered by Anthropic</div>
+  <div class="splash-ver">v3.0 · Powered by OpenRouter</div>
 </div>
 
   <!-- Selection bar (replaces header in selection mode) -->
@@ -597,14 +597,14 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
       <div class="section-label">مفتاح API الشخصي</div>
       <div class="section">
         <div class="srow-block">
-          <div class="slabel">مفتاح Anthropic API</div>
+          <div class="slabel">مفتاح OpenRouter API</div>
           <div id="api-key-saved-state" class="hidden">
             <div class="api-key-status">المفتاح محفوظ على جهازك فقط ✓</div>
             <button class="btn btn-danger btn-sm" style="margin-top:8px" onclick="clearApiKey()">حذف المفتاح</button>
           </div>
           <div id="api-key-input-state">
             <div style="display:flex;gap:8px;margin-top:8px">
-              <input class="input" id="api-key-input" type="password" placeholder="sk-ant-..." autocomplete="off" style="flex:1;padding:11px 13px;font-size:13px;font-family:monospace" oninput="$('save-key-btn').disabled=!this.value.trim()">
+              <input class="input" id="api-key-input" type="password" placeholder="sk-or-..." autocomplete="off" style="flex:1;padding:11px 13px;font-size:13px;font-family:monospace" oninput="$('save-key-btn').disabled=!this.value.trim()">
               <button class="btn btn-primary btn-sm" id="save-key-btn" onclick="saveApiKey()" disabled>حفظ</button>
             </div>
           </div>
@@ -612,11 +612,25 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
         <div class="srow-block">
           <button onclick="toggleApiHelp()" style="background:none;border:none;color:var(--accent);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:0" id="api-help-btn">كيف أحصل على المفتاح؟ ▼</button>
           <div class="api-help-steps hidden" id="api-help-content">
-            <div class="api-step">1. افتح <a class="api-link" href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+            <div class="api-step">1. افتح <a class="api-link" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></div>
             <div class="api-step">2. من القائمة اختر «API Keys»</div>
             <div class="api-step">3. اضغط «Create Key» وانسخ المفتاح</div>
-            <div class="api-step">4. الصقه هنا — التوكنز ستُحتسب من حسابك</div>
+            <div class="api-step">4. الصقه هنا — التوكنز تُحتسب من حسابك على OpenRouter</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Model Selector -->
+      <div class="section-label">النموذج</div>
+      <div class="section">
+        <div class="srow">
+          <div>
+            <div class="slabel">موديل الذكاء الاصطناعي</div>
+            <div class="sdesc" id="model-desc-txt">اختر النموذج المناسب</div>
+          </div>
+          <select id="model-select" onchange="setModel(this.value)"
+            style="background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:600;outline:none;cursor:pointer;max-width:160px">
+          </select>
         </div>
       </div>
 
@@ -781,6 +795,38 @@ let state = {
 // ═══════════════════════════════════════════════════
 // THEMES
 // ═══════════════════════════════════════════════════
+// ── OpenRouter Models ──
+const OR_MODELS = [
+  { id:'google/gemini-2.5-flash-lite',       label:'Gemini 2.5 Flash Lite',  desc:'سريع ومجاني' },
+  { id:'google/gemini-2.5-flash',            label:'Gemini 2.5 Flash',       desc:'متوازن وذكي' },
+  { id:'google/gemini-2.5-pro',              label:'Gemini 2.5 Pro',         desc:'الأقوى من Google' },
+  { id:'anthropic/claude-sonnet-4-5',        label:'Claude Sonnet 4.5',      desc:'ذكي وسريع' },
+  { id:'anthropic/claude-opus-4',            label:'Claude Opus 4',          desc:'الأقوى من Anthropic' },
+  { id:'openai/gpt-4o-mini',                 label:'GPT-4o Mini',            desc:'سريع من OpenAI' },
+  { id:'openai/gpt-4o',                      label:'GPT-4o',                 desc:'قوي من OpenAI' },
+  { id:'meta-llama/llama-3.3-70b-instruct',  label:'Llama 3.3 70B',          desc:'مفتوح المصدر' },
+  { id:'mistralai/mistral-large',            label:'Mistral Large',          desc:'أوروبي وقوي' },
+  { id:'deepseek/deepseek-chat',             label:'DeepSeek Chat',          desc:'اقتصادي وذكي' },
+];
+
+function renderModelSelect() {
+  const sel = $('model-select');
+  if(!sel) return;
+  const cur = state.settings.orModel || OR_MODELS[0].id;
+  sel.innerHTML = OR_MODELS.map(m =>
+    `<option value="${m.id}" ${cur===m.id?'selected':''}>${m.label}</option>`
+  ).join('');
+  const curModel = OR_MODELS.find(m=>m.id===cur) || OR_MODELS[0];
+  setText('model-desc-txt', curModel.desc);
+}
+
+function setModel(id) {
+  state.settings.orModel = id;
+  persist(KEYS.settings, state.settings);
+  const m = OR_MODELS.find(m=>m.id===id) || OR_MODELS[0];
+  setText('model-desc-txt', m.desc);
+}
+
 const THEMES = [
   { id:'dark',     label:'Dark',      bg:'#08080f', dot:'#7b6cf0' },
   { id:'neon',     label:'Neon ⚡',   bg:'#040408', dot:'#00ffb4' },
@@ -1301,17 +1347,27 @@ function renderChat(){
 // ═══════════════════════════════════════════════════
 async function callClaude(messages, system){
   if(!state.apiKey) throw new Error('no_api_key');
+  const model = state.settings.orModel || 'google/gemini-2.5-flash-lite';
   const controller=new AbortController();
   const tid=setTimeout(()=>controller.abort(),60000);
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
+  const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',signal:controller.signal,
-    headers:{'Content-Type':'application/json','x-api-key':state.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,system,messages}),
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+state.apiKey,
+      'HTTP-Referer':'https://ideaspark.app',
+      'X-Title':'IdeaSpark',
+    },
+    body:JSON.stringify({
+      model,
+      max_tokens:1200,
+      messages:[{role:'system',content:system},...messages],
+    }),
   });
   clearTimeout(tid);
   if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||'HTTP '+res.status);}
   const data=await res.json();
-  const text=data.content?.[0]?.text||'';
+  const text=data.choices?.[0]?.message?.content||'';
   if(!text) throw new Error('empty_response');
   return text;
 }
@@ -1447,6 +1503,7 @@ function renderSettings(){
   else{$('custom-types-display').textContent='—';hide('clear-types-btn');}
   $('vt-list').classList.toggle('active',state.settings.viewMode==='list');
   $('vt-grid').classList.toggle('active',state.settings.viewMode==='grid');
+  renderModelSelect();
 }
 
 function saveApiKey(){
