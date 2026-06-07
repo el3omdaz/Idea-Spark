@@ -352,27 +352,25 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
 
 .hidden{display:none!important}
 
-/* ── Bottom Sheet (Theme Picker) ── */
-.sheet-backdrop{position:fixed;inset:0;background:#00000070;z-index:400;opacity:0;transition:opacity .25s;pointer-events:none}
-.sheet-backdrop.show{opacity:1;pointer-events:all}
-.theme-sheet{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
-  width:100%;max-width:430px;
-  background:var(--s1);border-radius:24px 24px 0 0;
-  border-top:1px solid var(--border2);
-  z-index:401;transition:transform .3s cubic-bezier(.32,.72,0,1);
-  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
+/* ── Horizontal Theme Bar ── */
+.theme-bar{
+  display:flex;gap:8px;
+  padding:0 20px 12px;
+  overflow-x:auto;scrollbar-width:none;
+  flex-shrink:0;
 }
-.theme-sheet.open{transform:translateX(-50%) translateY(0)}
-.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--border2);margin:12px auto 16px}
-.sheet-title{font-size:13px;font-weight:700;color:var(--text2);text-align:center;margin-bottom:18px;text-transform:uppercase;letter-spacing:.6px}
-.sheet-swatches{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 16px 8px}
-.swatch{aspect-ratio:1;border-radius:12px;border:2.5px solid transparent;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center}
-.swatch.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 40%,transparent)}
-.swatch-check{font-size:11px;color:#fff;text-shadow:0 1px 3px #0009;display:none}
-.swatch.active .swatch-check{display:block}
-.sheet-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 16px 4px}
-.swatch-label{font-size:8.5px;font-weight:600;text-align:center;color:var(--text3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.theme-bar::-webkit-scrollbar{display:none}
+.theme-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 10px 5px 6px;
+  border-radius:20px;border:2px solid transparent;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+  background:var(--s2);
+}
+.theme-pill.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.pill-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(255,255,255,.15)}
+.pill-label{font-size:11px;font-weight:700;color:var(--text2);white-space:nowrap}
+.theme-pill.active .pill-label{color:var(--accent)}
 
 /* Toast */
 .toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom,16px));left:50%;transform:translateX(-50%);background:var(--s3);color:var(--text);border:1px solid var(--border2);padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:600;white-space:nowrap;box-shadow:0 8px 24px #0008;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -409,10 +407,12 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
           <button class="vt-btn active" id="vt-list" onclick="setViewMode('list')" title="قائمة">☰</button>
           <button class="vt-btn" id="vt-grid" onclick="setViewMode('grid')" title="شبكة">⊞</button>
         </div>
-        <button class="icon-btn" id="theme-hdr-btn" onclick="openThemeSheet()">🎨</button>
         <button class="icon-btn hidden" id="warn-btn" onclick="nav('settings')">⚠️</button>
         <button class="icon-btn" id="settings-btn" onclick="nav('settings')">⚙️</button>
       </div>
+    </div>
+    <!-- Theme Scroll Bar -->
+    <div class="theme-bar" id="theme-bar"></div>
     </div>
   </div>
 
@@ -656,15 +656,6 @@ body{font-family:'Noto Kufi Arabic',sans-serif}
 <!-- FAB backdrop -->
 <div class="fab-backdrop" id="fab-backdrop" onclick="closeFabMenu()"></div>
 
-<!-- Theme Bottom Sheet -->
-<div class="sheet-backdrop" id="sheet-backdrop" onclick="closeThemeSheet()"></div>
-<div class="theme-sheet" id="theme-sheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-title">اختر الثيم</div>
-  <div class="sheet-swatches" id="sheet-swatches"></div>
-  <div class="sheet-labels" id="sheet-labels"></div>
-</div>
-
 <!-- Delete Modal -->
 <div class="overlay hidden" id="delete-modal">
   <div class="modal">
@@ -745,35 +736,22 @@ function applyTheme(themeId) {
   document.documentElement.setAttribute('data-theme', themeId === 'dark' ? '' : themeId);
   const fab = $('fab-btn');
   if(fab) fab.style.boxShadow = themeId==='neon' ? '0 0 20px #00ffb4, 0 0 40px #00ffb488' : '';
-  renderSheetSwatches();
+  renderThemeBar();
 }
 
-function openThemeSheet() {
-  renderSheetSwatches();
-  $('theme-sheet').classList.add('open');
-  $('sheet-backdrop').classList.add('show');
-}
-function closeThemeSheet() {
-  $('theme-sheet').classList.remove('open');
-  $('sheet-backdrop').classList.remove('show');
-}
-
-function renderSheetSwatches() {
-  const ss = $('sheet-swatches');
-  const sl = $('sheet-labels');
-  if(!ss) return;
-  ss.innerHTML = THEMES.map(th => `
-    <div class="swatch ${state.settings.theme===th.id?'active':''}"
-      style="background:${th.bg}"
-      onclick="applyTheme('${th.id}');closeThemeSheet()">
-      <div class="swatch-check">✓</div>
+function renderThemeBar() {
+  const bar = $('theme-bar');
+  if(!bar) return;
+  bar.innerHTML = THEMES.map(th => `
+    <div class="theme-pill ${state.settings.theme===th.id?'active':''}" onclick="applyTheme('${th.id}')">
+      <div class="pill-dot" style="background:${th.bg};box-shadow:inset 0 0 0 1.5px ${th.dot}44">
+        <div style="width:8px;height:8px;border-radius:50%;background:${th.dot};margin:auto;margin-top:5px"></div>
+      </div>
+      <span class="pill-label">${th.label}</span>
     </div>`).join('');
-  sl.innerHTML = THEMES.map(th =>
-    `<div class="swatch-label" style="color:${state.settings.theme===th.id?'var(--accent)':'var(--text3)'}">${th.label}</div>`
-  ).join('');
 }
 
-function renderThemeDropdown() { /* replaced by bottom sheet */ }
+function renderThemeDropdown() { /* replaced by theme bar */ }
 
 // ═══════════════════════════════════════════════════
 // UTILS
@@ -1433,6 +1411,7 @@ if('serviceWorker'in navigator) navigator.serviceWorker.register('/sw.js').catch
 
 // apply saved theme
 applyTheme(state.settings.theme||'dark');
+renderThemeBar();
 
 // apply view mode
 setViewMode(state.settings.viewMode||'list');
