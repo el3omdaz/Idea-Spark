@@ -1373,13 +1373,7 @@ async function callClaude(messages, system){
   const tid=setTimeout(()=>controller.abort(),60000);
   const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',signal:controller.signal,
-    headers:{
-      'Content-Type':'application/json',
-      'Authorization':'Bearer '+state.apiKey,
-      'HTTP-Referer':'https://ideaspark.app',
-      'X-Title':'IdeaSpark',
-    },
-    body:JSON.stringify({
+       body:JSON.stringify({
       model,
       max_tokens:1200,
       messages:[{role:'system',content:system},...messages],
