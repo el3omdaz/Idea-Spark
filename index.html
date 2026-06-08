@@ -941,16 +941,19 @@ function escHtml(s) {
 
 function errMsg(e) {
   const msg = String(e?.message || '');
+  const model = e?.model ? `\nالموديل: ${e.model}` : '';
+  const status = e?.status ? `HTTP ${e.status}` : '';
+  const rawDetail = String(e?.detail || '').replace(/\s+/g,' ').trim();
+  const detail = rawDetail && rawDetail !== msg ? `\nتفاصيل OpenRouter: ${rawDetail.slice(0,240)}` : '';
   if(msg==='no_api_key') return '⚠️ أدخل مفتاح API من الإعدادات أولاً';
   if(msg==='timeout' || e?.name==='AbortError') return '❌ انتهت المهلة، حاول مجدداً';
   if(msg==='empty_response') return '❌ لم يرجع الذكاء الاصطناعي نتيجة، جرّب موديل آخر';
-  if(msg.includes('401')) return '❌ مفتاح API غير صحيح أو منتهي';
-  if(/anthropic|claude/i.test(msg) && /credit|balance|quota|billing|funds/i.test(msg)) return '❌ Claude يحتاج رصيداً مدفوعاً أو حد صرف أعلى لهذا المفتاح. جرّب Claude Haiku أو Gemini 2.5 Flash Lite';
-  if(msg.includes('402') || /credit|balance|quota|billing|funds/i.test(msg)) return '❌ الرصيد أو حد الصرف لهذا المفتاح لا يكفي للموديل المختار. جرّب Gemini 2.5 Flash Lite';
-  if(msg.includes('404') || /model|not found|No endpoints/i.test(msg)) return '❌ الموديل المختار غير متاح حالياً، جرّب Gemini 2.5 Flash Lite';
-  if(msg.includes('429')) return '❌ عدد الطلبات كبير حالياً، انتظر قليلاً ثم حاول مرة أخرى';
+  if(e?.status===401 || msg.includes('401')) return `❌ مفتاح API غير صحيح أو منتهي${model}`;
+  if(e?.status===402 || /credit|balance|quota|billing|funds/i.test(msg)) return `❌ OpenRouter رفض الطلب بسبب رصيد/حد صرف أو مزود Claude.${model}\n${status}: ${msg}${detail}`;
+  if(e?.status===404 || msg.includes('404') || /model|not found|No endpoints/i.test(msg)) return `❌ الموديل المختار غير متاح حالياً.${model}\n${status}: ${msg}${detail}`;
+  if(e?.status===429 || msg.includes('429')) return `❌ عدد الطلبات كبير حالياً، انتظر قليلاً ثم حاول مرة أخرى${model}`;
   if(/Failed to fetch|NetworkError|Load failed/i.test(msg)) return '❌ تعذر الاتصال بـ OpenRouter. تأكد من الإنترنت أو جرّب تشغيل التطبيق عبر رابط https';
-  return `❌ حدث خطأ: ${msg || 'حاول مجدداً'}`;
+  return `❌ حدث خطأ${model}\n${status}: ${msg || 'حاول مجدداً'}${detail}`;
 }
 
 // ═══════════════════════════════════════════════════
@@ -1394,7 +1397,6 @@ async function callClaude(messages, system){
         model,
         max_tokens:1200,
         temperature:0.7,
-        provider:{sort:'price'},
         messages:[{role:'system',content:system},...messages],
       }),
     });
@@ -1402,7 +1404,11 @@ async function callClaude(messages, system){
       const raw=await res.text().catch(()=>'');
       let info={};
       try{info=JSON.parse(raw);}catch{}
-      throw new Error(info?.error?.message || info?.message || raw || `HTTP ${res.status}`);
+      const err = new Error(info?.error?.message || info?.message || raw || `HTTP ${res.status}`);
+      err.status = res.status;
+      err.model = model;
+      err.detail = raw;
+      throw err;
     }
     const data=await res.json();
     const content=data.choices?.[0]?.message?.content;
