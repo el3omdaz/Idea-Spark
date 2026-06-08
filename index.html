@@ -812,7 +812,7 @@ const OR_MODELS = [
   { id:'google/gemini-2.5-flash-lite',       label:'Gemini 2.5 Flash Lite',  desc:'سريع ومجاني' },
   { id:'google/gemini-2.5-flash',            label:'Gemini 2.5 Flash',       desc:'متوازن وذكي' },
   { id:'google/gemini-2.5-pro',              label:'Gemini 2.5 Pro',         desc:'الأقوى من Google' },
-  { id:'anthropic/claude-sonnet-4-5',        label:'Claude Sonnet 4.5',      desc:'ذكي وسريع' },
+  { id:'anthropic/claude-sonnet-4.5',        label:'Claude Sonnet 4.5',      desc:'ذكي وسريع' },
   { id:'anthropic/claude-opus-4',            label:'Claude Opus 4',          desc:'الأقوى من Anthropic' },
   { id:'openai/gpt-4o-mini',                 label:'GPT-4o Mini',            desc:'سريع من OpenAI' },
   { id:'openai/gpt-4o',                      label:'GPT-4o',                 desc:'قوي من OpenAI' },
@@ -939,9 +939,16 @@ function escHtml(s) {
 }
 
 function errMsg(e) {
-  if(e.message==='no_api_key') return '⚠️ أدخل مفتاح API من الإعدادات أولاً';
-  if(e.message==='timeout') return '❌ انتهت المهلة، حاول مجدداً';
-  return '❌ حدث خطأ، حاول مجدداً';
+  const msg = String(e?.message || '');
+  if(msg==='no_api_key') return '⚠️ أدخل مفتاح API من الإعدادات أولاً';
+  if(msg==='timeout' || e?.name==='AbortError') return '❌ انتهت المهلة، حاول مجدداً';
+  if(msg==='empty_response') return '❌ لم يرجع الذكاء الاصطناعي نتيجة، جرّب موديل آخر';
+  if(msg.includes('401')) return '❌ مفتاح API غير صحيح أو منتهي';
+  if(msg.includes('402') || /credit|balance|quota/i.test(msg)) return '❌ الرصيد غير كافٍ في OpenRouter';
+  if(msg.includes('404') || /model|not found|No endpoints/i.test(msg)) return '❌ الموديل المختار غير متاح، جرّب Gemini 2.5 Flash Lite';
+  if(msg.includes('429')) return '❌ عدد الطلبات كبير حالياً، انتظر قليلاً ثم حاول مرة أخرى';
+  if(/Failed to fetch|NetworkError|Load failed/i.test(msg)) return '❌ تعذر الاتصال بـ OpenRouter. تأكد من الإنترنت أو جرّب تشغيل التطبيق عبر رابط https';
+  return `❌ حدث خطأ: ${msg || 'حاول مجدداً'}`;
 }
 
 // ═══════════════════════════════════════════════════
@@ -1364,27 +1371,46 @@ function renderChat(){
 }
 
 // ═══════════════════════════════════════════════════
-// CLAUDE API
+// OPENROUTER API
 // ═══════════════════════════════════════════════════
 async function callClaude(messages, system){
   if(!state.apiKey) throw new Error('no_api_key');
   const model = state.settings.orModel || 'google/gemini-2.5-flash-lite';
   const controller=new AbortController();
   const tid=setTimeout(()=>controller.abort(),60000);
-  const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-    method:'POST',signal:controller.signal,
-       body:JSON.stringify({
-      model,
-      max_tokens:1200,
-      messages:[{role:'system',content:system},...messages],
-    }),
-  });
-  clearTimeout(tid);
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||'HTTP '+res.status);}
-  const data=await res.json();
-  const text=data.choices?.[0]?.message?.content||'';
-  if(!text) throw new Error('empty_response');
-  return text;
+  try {
+    const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
+      method:'POST',signal:controller.signal,
+      headers:{
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'Authorization':'Bearer '+state.apiKey.trim(),
+        'HTTP-Referer': location.origin && location.origin !== 'null' ? location.origin : 'https://ideaspark.app',
+        'X-Title':'IdeaSpark',
+      },
+      body:JSON.stringify({
+        model,
+        max_tokens:1200,
+        temperature:0.7,
+        messages:[{role:'system',content:system},...messages],
+      }),
+    });
+    if(!res.ok){
+      const raw=await res.text().catch(()=>'');
+      let info={};
+      try{info=JSON.parse(raw);}catch{}
+      throw new Error(info?.error?.message || info?.message || raw || `HTTP ${res.status}`);
+    }
+    const data=await res.json();
+    const content=data.choices?.[0]?.message?.content;
+    const text=Array.isArray(content)
+      ? content.map(part => typeof part==='string' ? part : (part?.text || '')).join('')
+      : (content || '');
+    if(!text.trim()) throw new Error('empty_response');
+    return text.trim();
+  } finally {
+    clearTimeout(tid);
+  }
 }
 
 async function triggerAnalysis(){
