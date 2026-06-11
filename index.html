@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>IdeaSpark</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 
@@ -22,6 +22,7 @@
   --accent:#7b6cf0;--accent2:#0fd9a0;--accent3:#f07b6c;
   --text:#f4f4fb;--text2:#b8b8d0;--text3:#8585a0;
   --r:16px;--shadow:0 4px 20px rgba(0,0,0,.4);
+  --on-accent:#fff;
 }
 /* White */
 [data-theme="white"]{
@@ -46,6 +47,7 @@
   --accent:#7dc4b8;--accent2:#a3c49a;--accent3:#e8856a;
   --text:#f2fbfa;--text2:#c4dcda;--text3:#92b6b2;
   --shadow:0 4px 20px rgba(0,0,0,.4);
+  --on-accent:#0c2a26;
 }
 /* Rose Blush — 4JoJPOrFcDc.jpg */
 [data-theme="rose"]{
@@ -62,6 +64,7 @@
   --accent:#7dd4f8;--accent2:#5de8c0;--accent3:#f87878;
   --text:#f5fbff;--text2:#c4e2f6;--text3:#8ec1e4;
   --shadow:0 4px 20px rgba(0,0,0,.5);
+  --on-accent:#06283c;
 }
 /* Warm Noir — 6zdU_9Y7I1o.jpg */
 [data-theme="noir"]{
@@ -70,6 +73,7 @@
   --accent:#d4a84b;--accent2:#6dba8a;--accent3:#e06050;
   --text:#f5efe6;--text2:#c7bca9;--text3:#948979;
   --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#221806;
 }
 /* Velvet Purple — hXx-AATLxh8.jpg */
 [data-theme="velvet"]{
@@ -78,6 +82,7 @@
   --accent:#c48be0;--accent2:#7ad4c8;--accent3:#f07878;
   --text:#f8f0ff;--text2:#d5b5e6;--text3:#a97dc2;
   --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#2a0e36;
 }
 /* Sky Blue — 640w-0yKSTws6XKo.jpg */
 [data-theme="sky"]{
@@ -86,6 +91,7 @@
   --accent:#58aadc;--accent2:#4dd4a8;--accent3:#f0805a;
   --text:#f2f9ff;--text2:#b9dbef;--text3:#85b6d2;
   --shadow:0 4px 20px rgba(0,0,0,.5);
+  --on-accent:#071e30;
 }
 /* Deep Navy — images(1).jfif */
 [data-theme="navy"]{
@@ -94,6 +100,7 @@
   --accent:#8888ff;--accent2:#50d8c0;--accent3:#f07880;
   --text:#f0f0ff;--text2:#c6c6ea;--text3:#9292ce;
   --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#0a0a30;
 }
 /* Neon ⚡ */
 [data-theme="neon"]{
@@ -102,6 +109,7 @@
   --accent:#00ffb4;--accent2:#ff00e5;--accent3:#ff3c3c;
   --text:#ecfff2;--text2:#9cf0c1;--text3:#69c993;
   --shadow:0 4px 30px rgba(0,255,180,.2);
+  --on-accent:#04130d;
 }
 /* Sakura 🌸 — بناتي وردي فاتح */
 [data-theme="sakura"]{
@@ -129,7 +137,8 @@
 }
 
 html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden;transition:background .3s,color .3s}
-body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
+body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:16px;-webkit-font-smoothing:antialiased}
+.font-heading,.logo-name,.splash-name,.form-title,.settings-title,.detail-title,.card-title,.wz-summary-title,.empty-title{font-family:'Noto Kufi Arabic','IBM Plex Sans Arabic',sans-serif}
 .app{max-width:430px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;position:relative;transition:background .3s}
 
 /* Header */
@@ -153,7 +162,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 
 /* FAB */
 .fab-wrap{position:relative}
-.fab{width:56px;height:56px;border-radius:18px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),#9b6cf0);color:#fff;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px color-mix(in srgb,var(--accent) 55%,transparent);transition:all .18s;transform:translateY(-4px);user-select:none}
+.fab{width:56px;height:56px;border-radius:18px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));color:var(--on-accent);font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px color-mix(in srgb,var(--accent) 55%,transparent);transition:all .18s;transform:translateY(-4px);user-select:none}
 .fab:active{transform:translateY(-2px) scale(.96)}
 .fab-menu{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:center;z-index:200}
 .fab-menu.hidden{display:none}
@@ -185,7 +194,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 /* Grid/List toggle */
 .view-toggle{display:flex;gap:4px;background:var(--s2);border-radius:8px;padding:3px}
 .vt-btn{background:none;border:none;cursor:pointer;padding:5px 8px;border-radius:6px;color:var(--text3);font-size:13px;transition:all .15s}
-.vt-btn.active{background:var(--accent);color:#fff}
+.vt-btn.active{background:var(--accent);color:var(--on-accent)}
 
 /* Cards - LIST view */
 .ideas-grid{display:flex;flex-direction:column;gap:10px}
@@ -198,7 +207,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
 .card-title{font-size:16px;font-weight:700;line-height:1.45}
-.card-desc{font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-desc{font-size:13.5px;color:var(--text2);margin-bottom:10px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-footer{display:flex;align-items:center;justify-content:space-between}
 .card-date{font-size:11px;color:var(--text3)}
 .card-dots{display:flex;align-items:center;gap:8px}
@@ -212,7 +221,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 /* Selection mode */
 .sel-checkbox{width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);background:var(--s2);display:none;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;font-size:11px}
 .selection-mode .sel-checkbox{display:flex}
-.idea-card.selecting .sel-checkbox{background:var(--accent);border-color:var(--accent);color:#fff}
+.idea-card.selecting .sel-checkbox{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .sel-bar{display:none;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--s2);border-bottom:1px solid var(--border)}
 .sel-bar.active{display:flex}
 .sel-count{font-size:13px;font-weight:700;color:var(--accent)}
@@ -266,7 +275,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 
 /* Buttons */
 .btn{width:100%;padding:15px;border-radius:13px;border:none;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#9b6cf0);color:#fff;box-shadow:0 6px 24px color-mix(in srgb,var(--accent) 44%,transparent)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));color:var(--on-accent);box-shadow:0 6px 24px color-mix(in srgb,var(--accent) 44%,transparent)}
 .btn-ghost{background:var(--s2);color:var(--text2);border:1px solid var(--border)}
 .btn-outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
 .btn-teal{background:color-mix(in srgb,var(--accent2) 18%,transparent);color:var(--accent2);border:1px solid color-mix(in srgb,var(--accent2) 40%,transparent)}
@@ -277,13 +286,18 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 .btn-row .btn{flex:1}
 
 /* Detail */
-.back-btn{background:none;border:none;color:var(--accent);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0;margin-bottom:20px;display:flex;align-items:center;gap:6px}
+.back-btn{position:sticky;top:0;z-index:60;display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--s1) 72%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);color:var(--text);font-family:inherit;font-size:14px;font-weight:700;padding:8px 18px 8px 14px;border-radius:30px;cursor:pointer;margin-bottom:16px;box-shadow:0 4px 18px color-mix(in srgb,var(--accent) 16%,transparent);transition:transform .15s,border-color .15s}
+.back-btn:active{transform:scale(.95);border-color:var(--accent)}
+.back-arrow-circle{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,var(--accent2)));color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.back-float{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,16px));right:20px;z-index:130;width:54px;height:54px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--s1) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--accent);font-size:23px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.4),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .25s,transform .25s}
+.back-float.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-float:active{transform:scale(.92)}
 .detail-title{font-size:25px;font-weight:800;line-height:1.4;margin-bottom:8px;letter-spacing:0}
 .detail-desc{color:var(--text2);font-size:16px;line-height:1.85;margin-bottom:12px}
 .detail-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
 .ai-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:14px}
 .ai-card-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px}
-.ai-text{font-size:16px;line-height:1.9;color:var(--text)}
+.ai-text{font-size:15.5px;line-height:2;color:var(--text)}
 .ai-text h4{color:var(--text);font-size:16px;font-weight:800;margin:12px 0 8px}
 .ai-text li{margin-bottom:7px;padding-inline-start:16px;color:var(--text)}
 .ai-text p{margin-bottom:7px}
@@ -294,8 +308,8 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 .chat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin-top:14px;overflow:hidden}
 .chat-hdr{padding:13px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.3px}
 .chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:10px;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.bubble{max-width:88%;padding:11px 14px;border-radius:14px;font-size:15px;line-height:1.75}
-.bubble.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bubble{max-width:88%;padding:11px 14px;border-radius:14px;font-size:15px;line-height:1.9}
+.bubble.user{background:color-mix(in srgb,var(--accent) 16%,var(--s2));border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);color:var(--text);align-self:flex-end;border-bottom-right-radius:4px}
 .bubble.ai-bubble{background:var(--s2);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
 .bubble-label{font-size:10px;font-weight:700;opacity:.6;margin-bottom:3px;letter-spacing:.4px}
 .chat-thinking{align-self:flex-start;color:var(--text3);font-size:14px;font-style:italic;padding:6px 0}
@@ -322,7 +336,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 .toggle-btn.on .toggle-thumb{transform:translateX(20px)}
 .lang-toggle{display:flex;gap:6px}
 .lang-opt{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--text2);font-family:inherit;font-size:13px;cursor:pointer;font-weight:600;transition:all .18s}
-.lang-opt.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lang-opt.active{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .api-key-status{font-size:12px;color:var(--accent2);margin-top:6px}
 .api-help-steps{margin-top:10px;display:flex;flex-direction:column;gap:6px}
 .api-step{font-size:13px;color:var(--text2)}
@@ -414,6 +428,48 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 .sheet-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 16px 4px}
 .swatch-label{font-size:8.5px;font-weight:600;text-align:center;color:var(--text3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 
+/* ═══ WIZARD (guided flow) ═══ */
+.wz-stepper{display:flex;gap:6px;margin-bottom:14px}
+.wz-step{flex:1;height:4px;border-radius:2px;background:var(--s3);transition:background .35s}
+.wz-step.done{background:var(--accent)}
+.wz-stage-label{font-size:12px;font-weight:700;color:var(--text3);margin-bottom:14px;letter-spacing:.4px}
+.wz-chat{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;min-height:120px}
+.wz-quick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.wz-input-row{display:flex;gap:8px;margin-bottom:8px}
+.wz-input-row .input{flex:1}
+.wz-send{width:48px;border-radius:12px;border:none;background:var(--accent);color:var(--on-accent);font-size:17px;cursor:pointer;flex-shrink:0}
+.wz-send:disabled{opacity:.4}
+.wz-analyze-btn{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;font-family:inherit;font-size:16px;font-weight:800;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 45%,transparent);transition:transform .15s;margin-top:6px}
+.wz-analyze-btn:active{transform:scale(.98)}
+.wz-form-field{margin-bottom:18px}
+.wz-select{width:100%;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;cursor:pointer}
+.wz-select:focus{border-color:var(--accent)}
+.wz-slider-wrap{display:flex;align-items:center;gap:12px}
+.wz-slider{flex:1;accent-color:var(--accent);height:6px}
+.wz-slider-val{font-size:13px;font-weight:700;color:var(--accent);min-width:78px;text-align:center;background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:10px;padding:6px 8px}
+.ms-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ms-chip{padding:9px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--s1);font-family:inherit;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s}
+.ms-chip.sel{background:color-mix(in srgb,var(--accent) 18%,transparent);border-color:var(--accent);color:var(--accent)}
+/* Score bars */
+.score-block{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.score-block-title{font-size:13px;font-weight:800;color:var(--text2);margin-bottom:14px}
+.score-row{margin-bottom:13px}
+.score-row:last-child{margin-bottom:0}
+.score-head{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px}
+.score-num{color:var(--text2);font-size:12px}
+.score-track{height:8px;border-radius:4px;background:var(--s3);overflow:hidden}
+.score-fill{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.wz-summary-card{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 12%,var(--s1)),var(--s1) 75%);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;overflow:hidden}
+.wz-summary-card::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3.5px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:0 var(--r) var(--r) 0}
+.summary-label{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;color:var(--accent);letter-spacing:.6px;margin-bottom:9px;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);padding:4px 10px;border-radius:20px}
+.detail-summary{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 12%,var(--s1)),var(--s1) 75%);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:var(--r);padding:15px 18px;margin:4px 0 12px;overflow:hidden;box-shadow:0 4px 18px color-mix(in srgb,var(--accent) 10%,transparent)}
+.detail-summary::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3.5px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:0 var(--r) var(--r) 0}
+.detail-summary::after{content:'❝';position:absolute;top:6px;left:14px;font-size:34px;line-height:1;color:color-mix(in srgb,var(--accent) 22%,transparent);pointer-events:none}
+.detail-summary-text{color:var(--text);font-size:15px;line-height:2}
+.wz-summary-title{font-size:17px;font-weight:800;margin-bottom:8px}
+.wz-summary-text{font-size:14px;line-height:1.8;color:var(--text2)}
+.wz-error{background:color-mix(in srgb,var(--accent3) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent3) 35%,transparent);border-radius:12px;padding:13px;font-size:13px;line-height:1.7;color:var(--text);margin-bottom:14px;white-space:pre-wrap}
+
 /* Toast */
 .toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom,16px));left:50%;transform:translateX(-50%);background:var(--s3);color:var(--text);border:1px solid var(--border2);padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:600;white-space:nowrap;box-shadow:0 8px 24px #0008;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
@@ -464,7 +520,7 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
     </div>
   </div>
   <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
-  <div class="splash-ver">v3.0 · Powered by OpenRouter</div>
+  <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
 </div>
 
   <!-- Selection bar (replaces header in selection mode) -->
@@ -565,14 +621,110 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
       </div>
     </div>
 
+    <!-- WIZARD (guided flow) -->
+    <div class="screen" id="screen-wizard">
+      <button class="back-btn" onclick="wizardExit()"><span class="back-arrow-circle">→</span><span>خروج</span></button>
+      <div class="wz-stepper">
+        <div class="wz-step" id="wz-step-1"></div>
+        <div class="wz-step" id="wz-step-2"></div>
+        <div class="wz-step" id="wz-step-3"></div>
+      </div>
+      <div class="wz-stage-label" id="wz-stage-label">١ / ٣ · محادثة سريعة</div>
+
+      <!-- Stage 1: chat -->
+      <div id="wz-stage-chat">
+        <div class="wz-chat" id="wz-chat"></div>
+        <div class="wz-quick" id="wz-quick"></div>
+        <div class="wz-input-row" id="wz-input-row">
+          <input class="input" id="wz-input" placeholder="اكتب هنا..." autocomplete="off">
+          <button class="wz-send" id="wz-send-btn" onclick="wzSubmit()">➤</button>
+        </div>
+        <button class="wz-analyze-btn hidden" id="wz-to-form-btn" onclick="wzGoForm()">🔍 تحليل الفكرة</button>
+      </div>
+
+      <!-- Stage 2: form -->
+      <div id="wz-stage-form" class="hidden">
+        <div class="wz-form-field">
+          <div class="field-label">🎯 الهدف من الفكرة</div>
+          <select class="wz-select" id="wz-goal">
+            <option value="مشروع ربحي">مشروع ربحي</option>
+            <option value="حل مشكلة شخصية أو عامة">حل مشكلة شخصية أو عامة</option>
+            <option value="مشروع مجتمعي / غير ربحي">مشروع مجتمعي / غير ربحي</option>
+            <option value="تجربة وتعلّم">تجربة وتعلّم</option>
+          </select>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">💰 نموذج الربح المتوقع</div>
+          <select class="wz-select" id="wz-profit">
+            <option value="بيع مباشر">بيع مباشر</option>
+            <option value="اشتراك شهري">اشتراك شهري</option>
+            <option value="إعلانات">إعلانات</option>
+            <option value="عمولة / وساطة">عمولة / وساطة</option>
+            <option value="خدمة مدفوعة">خدمة مدفوعة</option>
+            <option value="غير ربحي">غير ربحي</option>
+            <option value="غير محدد بعد">غير محدد بعد</option>
+          </select>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">📊 مستوى التعقيد المتوقع</div>
+          <div class="wz-slider-wrap">
+            <input type="range" class="wz-slider" id="wz-complexity" min="1" max="5" value="3" oninput="wzComplexityLabel()">
+            <div class="wz-slider-val" id="wz-complexity-val">متوسط</div>
+          </div>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">🧑‍💻 الموارد المتاحة لك (اختر أكثر من واحد)</div>
+          <div class="ms-chips" id="wz-resources"></div>
+        </div>
+        <button class="wz-analyze-btn" id="wz-final-btn" onclick="wzFinalAnalysis()">✨ التحليل النهائي</button>
+        <div class="form-actions" style="margin-top:10px">
+          <button class="btn btn-ghost" onclick="wzBackToChat()">← رجوع للمحادثة</button>
+        </div>
+      </div>
+
+      <!-- Stage 3: result -->
+      <div id="wz-stage-result" class="hidden">
+        <div id="wz-result-loading" class="ai-card"><div class="ai-text" id="wz-loading-txt">⏳ جارٍ التحليل...</div></div>
+        <div id="wz-result-error" class="wz-error hidden"></div>
+        <div id="wz-result-body" class="hidden">
+          <div class="wz-summary-card">
+            <div class="summary-label">📝 ملخص الفكرة</div>
+            <div class="wz-summary-title" id="wz-r-title"></div>
+            <div class="wz-summary-text" id="wz-r-summary"></div>
+          </div>
+          <div class="score-block">
+            <div class="score-block-title">📊 التقييم</div>
+            <div id="wz-r-scores"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">💡 اقتراحات تطوير</div>
+            <div class="ai-text" id="wz-r-suggestions"></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="wzConfirmSave()">✅ تأكيد الحفظ</button>
+            <button class="btn btn-outline" onclick="wzEdit()">✏️ تعديل</button>
+            <button class="btn btn-ghost" onclick="wizardExit()">إلغاء</button>
+          </div>
+        </div>
+        <button class="wz-analyze-btn hidden" id="wz-retry-btn" onclick="wzFinalAnalysis()">🔁 إعادة المحاولة</button>
+      </div>
+    </div>
+
     <!-- DETAIL -->
     <div class="screen" id="screen-detail">
-      <button class="back-btn" onclick="nav('list')"><span id="back-arrow">→</span> <span id="back-txt">رجوع</span></button>
+      <button class="back-btn" onclick="nav('list')"><span class="back-arrow-circle">→</span><span>رجوع لأفكاري</span></button>
       <div id="detail-title" class="detail-title"></div>
-      <div id="detail-desc" class="detail-desc hidden"></div>
+      <div class="detail-summary hidden" id="detail-summary">
+        <div class="summary-label">📝 ملخص الفكرة</div>
+        <div id="detail-desc" class="detail-summary-text"></div>
+      </div>
       <div class="detail-meta">
         <span id="detail-badge"></span>
         <span id="detail-date" class="card-date"></span>
+      </div>
+      <div class="score-block hidden" id="detail-scores-block">
+        <div class="score-block-title">📊 التقييم</div>
+        <div id="detail-scores"></div>
       </div>
       <div id="no-key-banner" class="no-key-banner hidden">
         <span id="no-key-txt"></span>
@@ -582,6 +734,10 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
       <div class="btn-row" id="ai-btns">
         <button class="btn btn-outline btn-sm" id="analyze-btn" onclick="triggerAnalysis()"></button>
         <button class="btn btn-teal btn-sm" id="plan-btn" onclick="triggerPlan()" disabled></button>
+      </div>
+      <div class="btn-row" id="ai-btns-2" style="margin-top:0">
+        <button class="btn btn-outline btn-sm" id="similar-btn" onclick="triggerSimilar()">💡 أفكار مشابهة</button>
+        <button class="btn btn-outline btn-sm" id="develop-btn" onclick="triggerDevelop()">🚀 تطوير الفكرة</button>
       </div>
       <div id="ai-analysis-card" class="ai-card hidden">
         <div class="ai-card-title" id="analysis-card-title">🤖 أسئلة التحليل</div>
@@ -602,6 +758,14 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
       <div id="ai-plan-card" class="ai-card hidden">
         <div class="ai-card-title" id="plan-card-title">🗺️ خطة التنفيذ</div>
         <div class="ai-text" id="ai-plan-text"></div>
+      </div>
+      <div id="ai-similar-card" class="ai-card hidden">
+        <div class="ai-card-title">💡 أفكار مشابهة</div>
+        <div class="ai-text" id="ai-similar-text"></div>
+      </div>
+      <div id="ai-develop-card" class="ai-card hidden">
+        <div class="ai-card-title">🚀 تطوير الفكرة</div>
+        <div class="ai-text" id="ai-develop-text"></div>
       </div>
     </div>
 
@@ -726,6 +890,9 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
     </button>
     <div class="fab-wrap">
       <div class="fab-menu hidden" id="fab-menu">
+        <div class="fab-item" onclick="closeFabMenu();openWizard()">
+          <span class="fab-item-icon">🧭</span>فكرة موجّهة (محادثة + تحليل)
+        </div>
         <div class="fab-item" onclick="closeFabMenu();openNew()">
           <span class="fab-item-icon">✍️</span>فكرة نصية
         </div>
@@ -744,6 +911,9 @@ body{font-family:'Noto Kufi Arabic',sans-serif;font-size:16px}
 
 <!-- FAB backdrop -->
 <div class="fab-backdrop" id="fab-backdrop" onclick="closeFabMenu()"></div>
+
+<!-- Floating back (appears on scroll in detail) -->
+<button class="back-float" id="back-float" onclick="nav('list')">→</button>
 
 <!-- Theme Bottom Sheet -->
 <div class="sheet-backdrop" id="sheet-backdrop" onclick="closeThemeSheet()"></div>
@@ -798,8 +968,9 @@ let state = {
   search:'',
   selectedId:null,
   deleteTarget:null,
-  aiAnalysis:'', aiPlan:'', chatHistory:[],
+  aiAnalysis:'', aiPlan:'', aiSimilar:'', aiDevelop:'', chatHistory:[],
   loadingAnalysis:false, loadingPlan:false, loadingChat:false,
+  loadingSimilar:false, loadingDevelop:false,
   // selection mode
   selectionMode:false, selectedIds:new Set(),
   // fab
@@ -977,7 +1148,7 @@ function errMsg(e) {
 // NAV
 // ═══════════════════════════════════════════════════
 function nav(view) {
-  ['list','new','ai-new','detail','settings'].forEach(v=>{
+  ['list','new','ai-new','wizard','detail','settings'].forEach(v=>{
     $(`screen-${v}`)?.classList.remove('active');
   });
   ['list','settings'].forEach(v=>$(`nav-${v}`)?.classList.remove('active'));
@@ -985,6 +1156,7 @@ function nav(view) {
   $(`nav-${view}`)?.classList.add('active');
   state.currentView = view;
   $('content').scrollTop = 0;
+  $('back-float')?.classList.remove('show');
 
   const showNav = view==='list'||view==='settings';
   $('bottom-nav').style.display = showNav?'flex':'none';
@@ -1353,12 +1525,22 @@ function openIdea(id){
   state.selectedId=id;
   state.aiAnalysis=idea.analysis||'';
   state.aiPlan=idea.plan||'';
+  state.aiSimilar=idea.similar||'';
+  state.aiDevelop=idea.develop||'';
   state.chatHistory=idea.chatHistory||[];
   state.loadingAnalysis=false;state.loadingPlan=false;state.loadingChat=false;
+  state.loadingSimilar=false;state.loadingDevelop=false;
   $('detail-title').textContent=idea.title;
-  if(idea.description){$('detail-desc').textContent=idea.description;show('detail-desc');}else hide('detail-desc');
+  if(idea.description){$('detail-desc').textContent=idea.description;show('detail-summary');}else hide('detail-summary');
   $('detail-badge').innerHTML=badgeHTML(idea.category);
   $('detail-date').textContent=fmtDate(idea.createdAt);
+  // scores (from guided wizard)
+  if(idea.scores){
+    $('detail-scores').innerHTML=scoreBarsHTML(idea.scores);
+    show('detail-scores-block');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>animateScoreBars('detail-scores')));
+  } else hide('detail-scores-block');
+  setText('analysis-card-title', idea.scores ? '🤖 ملخص التحليل' : '🤖 أسئلة التحليل');
   renderDetailAI();renderChat();
   nav('detail');
 }
@@ -1366,16 +1548,20 @@ function openIdea(id){
 function renderDetailAI(){
   const hasKey=!!state.apiKey;
   const hasAnalysis=state.aiAnalysis&&!state.aiAnalysis.startsWith('❌')&&!state.aiAnalysis.startsWith('⚠️');
-  if(!hasKey){show('no-key-banner');hide('analysis-off-banner');hide('ai-btns');}
+  if(!hasKey){show('no-key-banner');hide('analysis-off-banner');hide('ai-btns');hide('ai-btns-2');}
   else{
     hide('no-key-banner');
     (!state.settings.aiAuto&&!state.aiAnalysis)?show('analysis-off-banner'):hide('analysis-off-banner');
-    show('ai-btns');
+    show('ai-btns');show('ai-btns-2');
   }
   setText('analyze-btn',state.loadingAnalysis?'جارٍ التحليل...':(state.aiAnalysis?'إعادة التحليل ✨':'✨ حلّل الفكرة'));
   $('analyze-btn').disabled=state.loadingAnalysis;
   $('plan-btn').disabled=state.loadingPlan||!hasAnalysis;
   setText('plan-btn',state.loadingPlan?'جارٍ بناء الخطة...':'🗺️ خطة التنفيذ');
+  setText('similar-btn',state.loadingSimilar?'⏳ جارٍ البحث...':'💡 أفكار مشابهة');
+  $('similar-btn').disabled=state.loadingSimilar;
+  setText('develop-btn',state.loadingDevelop?'⏳ جارٍ التطوير...':'🚀 تطوير الفكرة');
+  $('develop-btn').disabled=state.loadingDevelop;
   if(state.aiAnalysis){
     const parts=splitAnalysisForChat(state.aiAnalysis);
     $('ai-analysis-text').innerHTML=formatAI(parts.questions);
@@ -1385,6 +1571,19 @@ function renderDetailAI(){
   }else{hide('ai-analysis-card');hide('ai-followup-card');}
   (hasAnalysis&&!state.loadingAnalysis)?show('chat-section'):hide('chat-section');
   if(state.aiPlan){$('ai-plan-text').innerHTML=formatAI(state.aiPlan);show('ai-plan-card');}else hide('ai-plan-card');
+  if(state.aiSimilar){$('ai-similar-text').innerHTML=formatAI(state.aiSimilar);show('ai-similar-card');}else hide('ai-similar-card');
+  if(state.aiDevelop){$('ai-develop-text').innerHTML=formatAI(state.aiDevelop);show('ai-develop-card');}else hide('ai-develop-card');
+}
+
+// safe formatting for chat bubbles: escape first, then bold/bullets/linebreaks
+function fmtBubble(text){
+  return escHtml(text)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .split('\n').map(l=>{
+      const t=l.trim();
+      if(/^[•\-]\s*/.test(t)) return '• '+t.replace(/^[•\-]\s*/,'');
+      return l;
+    }).join('<br>');
 }
 
 function renderChat(){
@@ -1392,7 +1591,7 @@ function renderChat(){
   msgs.innerHTML=state.chatHistory.map(m=>`
     <div class="bubble ${m.role==='user'?'user':'ai-bubble'}">
       <div class="bubble-label">${m.role==='user'?'أنت':'الذكاء الاصطناعي'}</div>
-      ${escHtml(m.text)}
+      ${fmtBubble(m.text)}
     </div>`).join('');
   if(state.loadingChat) msgs.innerHTML+=`<div class="chat-thinking">⏳ يفكر...</div>`;
   msgs.scrollTop=msgs.scrollHeight;
@@ -1502,6 +1701,293 @@ async function sendChat(){
 }
 
 $('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}});
+
+// ═══════════════════════════════════════════════════
+// SCORE HELPERS
+// ═══════════════════════════════════════════════════
+function clampScore(v){const n=Number(v);return isNaN(n)?50:Math.max(0,Math.min(100,Math.round(n)));}
+function scoreBarsHTML(scores){
+  const rows=[
+    {label:'💪 قوة الفكرة', val:clampScore(scores.strength),  color:'var(--accent)'},
+    {label:'🛠️ قابلية التنفيذ', val:clampScore(scores.feasibility),color:'var(--accent2)'},
+    {label:'⚠️ مستوى المخاطر', val:clampScore(scores.risk),     color:'var(--accent3)'},
+  ];
+  return rows.map(r=>`
+    <div class="score-row">
+      <div class="score-head"><span>${r.label}</span><span class="score-num">${r.val}/100</span></div>
+      <div class="score-track"><div class="score-fill" data-w="${r.val}" style="background:${r.color}"></div></div>
+    </div>`).join('');
+}
+function animateScoreBars(containerId){
+  $(containerId)?.querySelectorAll('.score-fill').forEach(f=>{f.style.width=f.dataset.w+'%';});
+}
+
+// ═══════════════════════════════════════════════════
+// SIMILAR IDEAS & DEVELOP
+// ═══════════════════════════════════════════════════
+async function triggerSimilar(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingSimilar=true;renderDetailAI();
+  const isAr=state.settings.lang==='ar';
+  const system=isAr?'أنت مستشار ابتكار. ردودك مختصرة وعملية. اكتب بالعربية.':'You are an innovation advisor. Be concise.';
+  const content=isAr
+    ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nأعطني 3 أفكار مشابهة أو مكمّلة، لكل واحدة سطر يشرح لماذا تناسبني:\n**أفكار مشابهة:**\n1. ...\n2. ...\n3. ...`
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nGive 3 similar or complementary ideas, one line each on why it fits.`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    state.aiSimilar=text;
+    state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,similar:text}:i);
+    persist(KEYS.ideas,state.ideas);
+  }catch(e){state.aiSimilar=errMsg(e);}
+  state.loadingSimilar=false;renderDetailAI();
+}
+
+async function triggerDevelop(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingDevelop=true;renderDetailAI();
+  const isAr=state.settings.lang==='ar';
+  const system=isAr?'أنت مستشار أعمال خبير. ردودك مختصرة وعملية. اكتب بالعربية.':'You are an expert business advisor. Be concise.';
+  const content=isAr
+    ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nكيف أطوّر هذه الفكرة؟ أجب بهذا الشكل:\n**ميزة تنافسية مقترحة:**\n...\n**أول 3 خطوات عملية:**\n1. ...\n2. ...\n3. ...\n**خطأ شائع تجنّبه:**\n...`
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nHow do I develop it? Answer with: a competitive edge, first 3 practical steps, one common mistake to avoid.`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    state.aiDevelop=text;
+    state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,develop:text}:i);
+    persist(KEYS.ideas,state.ideas);
+  }catch(e){state.aiDevelop=errMsg(e);}
+  state.loadingDevelop=false;renderDetailAI();
+}
+
+// ═══════════════════════════════════════════════════
+// GUIDED WIZARD (chat → form → analysis → confirm)
+// ═══════════════════════════════════════════════════
+const WZ_RESOURCES=['⏰ وقت فراغ','💵 ميزانية مالية','👥 فريق / شركاء','💻 مهارات تقنية','📣 علاقات وتسويق','🌱 لا شيء بعد'];
+const WZ_COMPLEXITY=['بسيط جداً','بسيط','متوسط','معقد','معقد جداً'];
+let wz=null;
+
+function openWizard(){
+  if(!state.apiKey){showToast('⚠️ أدخل مفتاح API من الإعدادات أولاً');nav('settings');return;}
+  wz={
+    phase:'title',           // title → summary → questions → ready
+    title:'', summary:'',
+    questions:[], answers:[], qIndex:0,
+    form:{goal:'مشروع ربحي',profit:'بيع مباشر',complexity:3,resources:new Set()},
+    result:null, loadingQs:false,
+  };
+  $('wz-chat').innerHTML='';
+  $('wz-quick').innerHTML='';
+  $('wz-input').value='';
+  show('wz-stage-chat');hide('wz-stage-form');hide('wz-stage-result');
+  hide('wz-to-form-btn');show('wz-input-row');
+  wzSetStep(1);
+  nav('wizard');
+  wzBot('👋 هلا! عطني <b>عنوان الفكرة</b> أول شي');
+  setTimeout(()=>$('wz-input').focus(),300);
+}
+
+function wizardExit(){ wz=null; nav('list'); }
+
+function wzSetStep(n){
+  for(let i=1;i<=3;i++) $('wz-step-'+i).classList.toggle('done',i<=n);
+  const labels={1:'١ / ٣ · محادثة سريعة',2:'٢ / ٣ · تفاصيل منظّمة',3:'٣ / ٣ · التحليل النهائي'};
+  setText('wz-stage-label',labels[n]);
+}
+
+function wzBot(html){
+  $('wz-chat').insertAdjacentHTML('beforeend',
+    `<div class="bubble ai-bubble"><div class="bubble-label">المساعد</div>${html}</div>`);
+  wzScroll();
+}
+function wzUser(text){
+  $('wz-chat').insertAdjacentHTML('beforeend',
+    `<div class="bubble user"><div class="bubble-label">أنت</div>${escHtml(text)}</div>`);
+  wzScroll();
+}
+function wzScroll(){ $('content').scrollTop=$('content').scrollHeight; }
+
+$('wz-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();wzSubmit();}});
+
+function wzSubmit(){
+  if(!wz||wz.loadingQs) return;
+  const val=$('wz-input').value.trim();
+  if(!val) return;
+  $('wz-input').value='';
+  wzUser(val);
+  if(wz.phase==='title'){
+    wz.title=val;
+    wz.phase='summary';
+    setTimeout(()=>wzBot('حلو 👌 الحين <b>اختصر فكرتك بجملة وحدة</b>'),300);
+  } else if(wz.phase==='summary'){
+    wz.summary=val;
+    wz.phase='questions';
+    wzGenerateQuestions();
+  } else if(wz.phase==='questions'){
+    wzAnswer(val);
+  }
+}
+
+async function wzGenerateQuestions(){
+  wz.loadingQs=true;
+  wzBot('⏳ ثواني، أجهّز لك أسئلة ذكية...');
+  const system='أنت مستشار أعمال. ردك JSON صالح فقط بدون أي نص آخر وبدون Markdown.';
+  const content=`فكرة: "${wz.title}"\nالملخص: "${wz.summary}"\n\nاكتب 3 أسئلة قصيرة جداً (سطر واحد لكل سؤال) مخصصة لهذه الفكرة تحديداً، تغطي: الجمهور المستهدف، المشكلة التي تحلها، المنافسين أو البدائل الموجودة.\n\nأرجع بالضبط: {"questions":["سؤال 1","سؤال 2","سؤال 3"]}`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim());
+    wz.questions=(Array.isArray(data.questions)?data.questions:[]).slice(0,3).map(q=>String(q));
+    if(!wz.questions.length) throw new Error('empty');
+  }catch{
+    // fallback — الفلو ما يتكسر أبداً
+    wz.questions=['من الجمهور المستهدف لفكرتك؟','شنو المشكلة اللي تحلها؟','هل في منافسين أو بدائل موجودة؟'];
+  }
+  wz.loadingQs=false;
+  wz.qIndex=0;
+  wzAskNext();
+}
+
+function wzAskNext(){
+  if(wz.qIndex>=wz.questions.length){
+    wz.phase='ready';
+    wzBot('ممتاز ✅ كل شي جاهز. اضغط الزر تحت ونكمل 👇');
+    hide('wz-input-row');
+    $('wz-quick').innerHTML='';
+    show('wz-to-form-btn');
+    wzScroll();
+    return;
+  }
+  wzBot(escHtml(wz.questions[wz.qIndex]));
+  $('wz-quick').innerHTML=`<button class="chip" onclick="wzSkip()">تخطّي ←</button>`;
+}
+
+function wzAnswer(val){
+  wz.answers[wz.qIndex]=val;
+  wz.qIndex++;
+  setTimeout(wzAskNext,250);
+}
+function wzSkip(){
+  wzUser('(تخطّي)');
+  wz.answers[wz.qIndex]='';
+  wz.qIndex++;
+  wzAskNext();
+}
+
+function wzGoForm(){
+  wzSetStep(2);
+  hide('wz-stage-chat');show('wz-stage-form');hide('wz-stage-result');
+  $('wz-goal').value=wz.form.goal;
+  $('wz-profit').value=wz.form.profit;
+  $('wz-complexity').value=wz.form.complexity;
+  wzComplexityLabel();
+  renderWzResources();
+  $('content').scrollTop=0;
+}
+
+function wzBackToChat(){
+  wzSetStep(1);
+  show('wz-stage-chat');hide('wz-stage-form');
+  wzScroll();
+}
+
+function wzComplexityLabel(){
+  const v=Number($('wz-complexity').value);
+  wz && (wz.form.complexity=v);
+  setText('wz-complexity-val',WZ_COMPLEXITY[v-1]);
+}
+
+function renderWzResources(){
+  $('wz-resources').innerHTML=WZ_RESOURCES.map((r,i)=>
+    `<button class="ms-chip${wz.form.resources.has(r)?' sel':''}" onclick="wzToggleRes(${i})">${r}</button>`
+  ).join('');
+}
+function wzToggleRes(i){
+  const r=WZ_RESOURCES[i];
+  wz.form.resources.has(r)?wz.form.resources.delete(r):wz.form.resources.add(r);
+  renderWzResources();
+}
+
+async function wzFinalAnalysis(){
+  wz.form.goal=$('wz-goal').value;
+  wz.form.profit=$('wz-profit').value;
+  wzSetStep(3);
+  hide('wz-stage-chat');hide('wz-stage-form');show('wz-stage-result');
+  show('wz-result-loading');hide('wz-result-body');hide('wz-result-error');hide('wz-retry-btn');
+  let dots=0;
+  const pulse=setInterval(()=>{dots=(dots%3)+1;setText('wz-loading-txt','⏳ جارٍ التحليل النهائي'+'.'.repeat(dots));},500);
+  $('content').scrollTop=0;
+
+  const qa=wz.questions.map((q,i)=>`س: ${q}\nج: ${wz.answers[i]||'لم يُجب'}`).join('\n');
+  const resources=[...wz.form.resources].join('، ')||'غير محددة';
+  const country=state.settings.country||'الكويت';
+  const system='أنت مستشار أعمال وابتكار خبير. ردك JSON صالح فقط بدون أي نص آخر وبدون Markdown.';
+  const content=`حلّل هذه الفكرة:\nالعنوان: "${wz.title}"\nالملخص: "${wz.summary}"\n${qa}\nالهدف: ${wz.form.goal}\nنموذج الربح: ${wz.form.profit}\nمستوى التعقيد: ${WZ_COMPLEXITY[wz.form.complexity-1]}\nالموارد المتاحة: ${resources}\nالبلد: ${country}\n\nأرجع JSON بهذا الشكل بالضبط:\n{"title":"عنوان محسّن ومختصر","summary":"ملخص الفكرة معاد صياغته باحترافية في 2-3 جمل","category":"commercial أو invention أو other","scores":{"strength":رقم من 0 إلى 100,"feasibility":رقم من 0 إلى 100,"risk":رقم من 0 إلى 100},"suggestions":["اقتراح تطوير 1","اقتراح تطوير 2","اقتراح تطوير 3"]}`;
+
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    clearInterval(pulse);
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim());
+    wz.result={
+      title:data.title||wz.title,
+      summary:data.summary||wz.summary,
+      category:['commercial','invention','other'].includes(data.category)?data.category:'commercial',
+      scores:{
+        strength:clampScore(data.scores?.strength),
+        feasibility:clampScore(data.scores?.feasibility),
+        risk:clampScore(data.scores?.risk),
+      },
+      suggestions:(Array.isArray(data.suggestions)?data.suggestions:[]).slice(0,4).map(s=>String(s)),
+    };
+    hide('wz-result-loading');show('wz-result-body');
+    setText('wz-r-title','💡 '+wz.result.title);
+    setText('wz-r-summary',wz.result.summary);
+    $('wz-r-scores').innerHTML=scoreBarsHTML(wz.result.scores);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>animateScoreBars('wz-r-scores')));
+    $('wz-r-suggestions').innerHTML=formatAI(wz.result.suggestions.map(s=>'• '+s).join('\n'));
+  }catch(e){
+    clearInterval(pulse);
+    hide('wz-result-loading');
+    $('wz-result-error').textContent=errMsg(e);
+    show('wz-result-error');show('wz-retry-btn');
+  }
+}
+
+function wzEdit(){
+  wzSetStep(2);
+  hide('wz-stage-result');show('wz-stage-form');
+  $('content').scrollTop=0;
+}
+
+function wzConfirmSave(){
+  if(!wz?.result) return;
+  const r=wz.result;
+  const analysisSeed=
+    `**التقييم:**\n`+
+    `• قوة الفكرة: ${r.scores.strength}/100\n`+
+    `• قابلية التنفيذ: ${r.scores.feasibility}/100\n`+
+    `• مستوى المخاطر: ${r.scores.risk}/100\n\n`+
+    `**مقترحات تطوير:**\n`+
+    r.suggestions.map(s=>'• '+s).join('\n');
+  const idea={
+    id:Date.now().toString(),
+    title:r.title,
+    description:r.summary,
+    category:r.category,
+    createdAt:new Date().toISOString(),
+    analysis:analysisSeed, plan:'', chatHistory:[],
+    scores:r.scores,
+    wizard:{
+      summary:wz.summary,
+      questions:wz.questions, answers:wz.answers,
+      goal:wz.form.goal, profit:wz.form.profit,
+      complexity:wz.form.complexity, resources:[...wz.form.resources],
+    },
+  };
+  state.ideas.unshift(idea);
+  persist(KEYS.ideas,state.ideas);
+  showToast('✓ تم حفظ الفكرة');
+  wz=null;
+  openIdea(idea.id);
+}
 
 // ═══════════════════════════════════════════════════
 // DELETE
@@ -1627,6 +2113,10 @@ function dismissSplash() {
   splash.classList.add('hide');
   setTimeout(() => splash.style.display = 'none', 520);
 }
+
+$('content').addEventListener('scroll',()=>{
+  $('back-float').classList.toggle('show', state.currentView==='detail' && $('content').scrollTop>240);
+},{passive:true});
 
 nav('list');
 </script>

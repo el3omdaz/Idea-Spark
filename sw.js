@@ -1,4 +1,4 @@
-const CACHE = "ideaspark-v3";
+const CACHE = "ideaspark-v8";
 const ASSETS = ["/", "/index.html", "/manifest.json"];
 
 self.addEventListener("install", e => {
