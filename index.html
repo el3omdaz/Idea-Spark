@@ -2393,7 +2393,8 @@ function dismissSplash() {
   }
   const splash = $('splash');
   splash.classList.add('hide');
-  setTimeout(() => { splash.style.display = 'none'; openNew(); }, 520);
+  setTimeout(() => { splash.style.display = 'none'; }, 520);
+  openNew();
 }
 
 
