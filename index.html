@@ -425,7 +425,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
 /* ── Splash Screen ── */
 .splash{
-  position:absolute;inset:0;z-index:1000;
+  position:fixed;inset:0;z-index:9999;pointer-events:all;
   background:radial-gradient(ellipse at 50% 35%,#1a0f3a 0%,#06060e 65%);
   display:flex;flex-direction:column;align-items:center;
   padding:0 28px;
@@ -433,7 +433,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   padding-bottom:max(env(safe-area-inset-bottom,34px),40px);
   transition:opacity .5s ease,transform .5s ease;
 }
-.splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+.splash.hide{opacity:0;transform:scale(1.05);pointer-events:none!important}
 .splash-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .splash-icon-wrap{position:relative;margin-bottom:28px;animation:splash-pop .6s cubic-bezier(.34,1.56,.64,1) both}
 .splash-glow{position:absolute;inset:-24px;border-radius:50px;background:radial-gradient(circle,rgba(123,108,240,.35) 0%,transparent 70%);animation:glow-pulse 2.2s ease-in-out infinite}
@@ -530,50 +530,6 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 </head>
 <body>
 <div class="app">
-<!-- Splash Screen -->
-<div class="splash" id="splash">
-  <div class="splash-top">
-    <div class="splash-icon-wrap">
-      <div class="splash-glow"></div>
-      <div class="splash-icon">💡</div>
-    </div>
-    <div class="splash-name">IdeaSpark</div>
-    <div class="splash-tagline">فكرتك تستحق أن تُرى<br><b>حوّلها إلى مشروع حقيقي</b> بقوة الذكاء الاصطناعي</div>
-    <div class="splash-creator">CREATED BY <b>M. ALQATTAN</b></div>
-    <div class="splash-social">
-      <a class="soc-btn" href="https://www.facebook.com/share/1F5ecZv453/?mibextid=wwXIfr" target="_blank">
-        <div class="soc-icon" style="background:#1877f222">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </div>
-        <span class="soc-name">Facebook</span>
-      </a>
-      <a class="soc-btn" href="https://instagram.com/QoooLxxx" target="_blank">
-        <div class="soc-icon" style="background:linear-gradient(135deg,#f0900022,#e1306c22,#833ab422)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="url(#ig)"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#f09000"/><stop offset="50%" stop-color="#e1306c"/><stop offset="100%" stop-color="#833ab4"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </div>
-        <span class="soc-name">QoooLxxx</span>
-      </a>
-      <a class="soc-btn" href="https://x.com/QoooLxxx" target="_blank">
-        <div class="soc-icon" style="background:rgba(255,255,255,.06)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </div>
-        <span class="soc-name">QoooLxxx</span>
-      </a>
-      <a class="soc-btn" href="https://snapchat.com/add/QoooLxxxZ" target="_blank">
-        <div class="soc-icon" style="background:#fffc0022">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fffc00"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.083.045.199.09.345.09.479-.001.963-.276 1.498-.276.271 0 .57.06.787.181.218.12.33.301.33.478 0 .571-.688.964-1.052 1.132-.01.005-.048.025-.058.029-.062.028-.116.051-.169.075l-.164.075c-.4.184-.732.336-1.04.55-.068.048-.13.093-.185.135.143.437.324.84.468 1.199.093.235.177.448.244.648.25.76.385 1.47.385 2.098 0 .871-.253 1.613-.753 2.204-.5.59-1.215.949-2.128 1.065-.286.034-.55.049-.797.049l-.175-.003c-.33 0-.648.044-.952.09-.538.081-1.037.157-1.546.362-.573.231-1.12.697-1.752 1.255l-.03.028c-.392.35-.843.756-1.368.996-.46.21-.944.308-1.457.308-.024 0-.048-.001-.073-.002-.024.001-.048.002-.073.002-.513 0-.997-.098-1.457-.308-.525-.24-.976-.646-1.368-.996l-.03-.028c-.632-.558-1.18-1.024-1.752-1.255-.509-.205-1.008-.281-1.546-.362-.304-.046-.622-.09-.952-.09l-.175.003c-.247 0-.511-.015-.797-.049-.913-.116-1.628-.475-2.128-1.065-.5-.591-.753-1.333-.753-2.204 0-.628.135-1.338.385-2.098.067-.2.151-.413.244-.648.144-.359.325-.762.468-1.199-.055-.042-.117-.087-.185-.135-.308-.214-.64-.366-1.04-.55l-.164-.075c-.053-.024-.107-.047-.169-.075-.01-.004-.048-.024-.058-.029-.364-.168-1.052-.561-1.052-1.132 0-.177.112-.358.33-.478.217-.121.516-.181.787-.181.535 0 1.019.275 1.498.276.146 0 .262-.045.345-.09-.008-.165-.018-.33-.03-.51l-.003-.06c-.104-1.628-.23-3.654.299-4.847C7.86 1.07 11.217.793 12.206.793z"/></svg>
-        </div>
-        <span class="soc-name">QoooLxxxZ</span>
-      </a>
-    </div>
-  </div>
-  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:16px;animation:sfade .5s .7s both">
-    <input type="checkbox" id="splash-skip-cb" style="width:18px;height:18px;accent-color:#7b6cf0;cursor:pointer">
-    <span style="font-size:13px;color:rgba(255,255,255,.45)">تخطي هذه الشاشة في المرة القادمة</span>
-  </label>
-  <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
-  <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
-</div>
 
 
   <!-- Selection bar (replaces header in selection mode) -->
@@ -2611,5 +2567,50 @@ $('content').addEventListener('scroll',()=>{
 
 openNew();
 </script>
+<!-- Splash Screen -->
+<div class="splash" id="splash">
+  <div class="splash-top">
+    <div class="splash-icon-wrap">
+      <div class="splash-glow"></div>
+      <div class="splash-icon">💡</div>
+    </div>
+    <div class="splash-name">IdeaSpark</div>
+    <div class="splash-tagline">فكرتك تستحق أن تُرى<br><b>حوّلها إلى مشروع حقيقي</b> بقوة الذكاء الاصطناعي</div>
+    <div class="splash-creator">CREATED BY <b>M. ALQATTAN</b></div>
+    <div class="splash-social">
+      <a class="soc-btn" href="https://www.facebook.com/share/1F5ecZv453/?mibextid=wwXIfr" target="_blank">
+        <div class="soc-icon" style="background:#1877f222">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <span class="soc-name">Facebook</span>
+      </a>
+      <a class="soc-btn" href="https://instagram.com/QoooLxxx" target="_blank">
+        <div class="soc-icon" style="background:linear-gradient(135deg,#f0900022,#e1306c22,#833ab422)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="url(#ig)"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#f09000"/><stop offset="50%" stop-color="#e1306c"/><stop offset="100%" stop-color="#833ab4"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <span class="soc-name">QoooLxxx</span>
+      </a>
+      <a class="soc-btn" href="https://x.com/QoooLxxx" target="_blank">
+        <div class="soc-icon" style="background:rgba(255,255,255,.06)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <span class="soc-name">QoooLxxx</span>
+      </a>
+      <a class="soc-btn" href="https://snapchat.com/add/QoooLxxxZ" target="_blank">
+        <div class="soc-icon" style="background:#fffc0022">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fffc00"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.083.045.199.09.345.09.479-.001.963-.276 1.498-.276.271 0 .57.06.787.181.218.12.33.301.33.478 0 .571-.688.964-1.052 1.132-.01.005-.048.025-.058.029-.062.028-.116.051-.169.075l-.164.075c-.4.184-.732.336-1.04.55-.068.048-.13.093-.185.135.143.437.324.84.468 1.199.093.235.177.448.244.648.25.76.385 1.47.385 2.098 0 .871-.253 1.613-.753 2.204-.5.59-1.215.949-2.128 1.065-.286.034-.55.049-.797.049l-.175-.003c-.33 0-.648.044-.952.09-.538.081-1.037.157-1.546.362-.573.231-1.12.697-1.752 1.255l-.03.028c-.392.35-.843.756-1.368.996-.46.21-.944.308-1.457.308-.024 0-.048-.001-.073-.002-.024.001-.048.002-.073.002-.513 0-.997-.098-1.457-.308-.525-.24-.976-.646-1.368-.996l-.03-.028c-.632-.558-1.18-1.024-1.752-1.255-.509-.205-1.008-.281-1.546-.362-.304-.046-.622-.09-.952-.09l-.175.003c-.247 0-.511-.015-.797-.049-.913-.116-1.628-.475-2.128-1.065-.5-.591-.753-1.333-.753-2.204 0-.628.135-1.338.385-2.098.067-.2.151-.413.244-.648.144-.359.325-.762.468-1.199-.055-.042-.117-.087-.185-.135-.308-.214-.64-.366-1.04-.55l-.164-.075c-.053-.024-.107-.047-.169-.075-.01-.004-.048-.024-.058-.029-.364-.168-1.052-.561-1.052-1.132 0-.177.112-.358.33-.478.217-.121.516-.181.787-.181.535 0 1.019.275 1.498.276.146 0 .262-.045.345-.09-.008-.165-.018-.33-.03-.51l-.003-.06c-.104-1.628-.23-3.654.299-4.847C7.86 1.07 11.217.793 12.206.793z"/></svg>
+        </div>
+        <span class="soc-name">QoooLxxxZ</span>
+      </a>
+    </div>
+  </div>
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:16px;animation:sfade .5s .7s both">
+    <input type="checkbox" id="splash-skip-cb" style="width:18px;height:18px;accent-color:#7b6cf0;cursor:pointer">
+    <span style="font-size:13px;color:rgba(255,255,255,.45)">تخطي هذه الشاشة في المرة القادمة</span>
+  </label>
+  <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
+  <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
+</div>
+
 </body>
 </html>
