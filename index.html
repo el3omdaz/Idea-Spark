@@ -241,6 +241,13 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 .table-view .table-header span{cursor:pointer;user-select:none;display:flex;align-items:center;gap:3px}
 .sort-asc::after{content:'↑';font-size:10px}
 .sort-desc::after{content:'↓';font-size:10px}
+.trash-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.trash-item:last-child{border-bottom:none}
+.trash-item-info{flex:1;min-width:0}
+.trash-item-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trash-item-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.trash-item-actions{display:flex;gap:6px;flex-shrink:0}
+.trash-dot{width:8px;height:8px;border-radius:50%;background:var(--accent3);flex-shrink:0}
 .status-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
 .status-new{background:#6366f122;color:#818cf8;border:1px solid #6366f144}
 .status-studying{background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b44}
@@ -608,7 +615,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
     <div class="screen active" id="screen-list">
       <div class="search-wrap">
         <input class="search-box" id="search-input" placeholder="ابحث...">
-        <button class="voice-btn" id="voice-btn" onclick="toggleVoiceSearch()" title="بحث صوتي">🎤</button>
+        <button class="voice-btn" id="voice-btn" onclick="toggleVoiceSearch()" title="بحث صوتي / إيقاف">🎤</button>
       </div>
       <!-- Stats bar -->
       <div class="stats-bar" id="stats-bar"></div>
@@ -838,6 +845,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
     <!-- SETTINGS -->
     <div class="screen" id="screen-settings">
+      <button class="back-btn" onclick="nav('list')" style="margin-bottom:12px"><span class="back-arrow-circle">→</span><span>أفكاري</span></button>
       <div class="settings-title">⚙️ الإعدادات</div>
 
       <!-- API Key -->
@@ -954,6 +962,15 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
         </div>
       </div>
 
+
+      <div class="section-label" id="trash-section-label">سلة المهملات</div>
+      <div class="section">
+        <div class="srow">
+          <div><div class="slabel">الأفكار المحذوفة</div><div class="sdesc" id="trash-count-label">لا توجد أفكار محذوفة</div></div>
+          <button class="btn btn-sm btn-ghost" id="open-trash-btn" onclick="openTrashSheet()">عرض</button>
+        </div>
+      </div>
+
     </div><!-- /settings -->
   </div><!-- /content -->
 
@@ -1004,6 +1021,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   <div class="modal">
     <h3>🗑️ حذف هذه الفكرة؟</h3>
     <p id="delete-idea-name"></p>
+    <p style="font-size:12px;color:var(--text3);margin-top:4px">ستنتقل إلى سلة المهملات</p>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeDeleteModal()">إلغاء</button>
       <button class="btn btn-danger" onclick="confirmDelete()">حذف</button>
@@ -1029,7 +1047,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 // ═══════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════
-const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key' };
+const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key', trash:'ispark_trash_v1' };
 const load = (k,d) => { try{return JSON.parse(localStorage.getItem(k))??d}catch{return d} };
 const persist = (k,v) => localStorage.setItem(k,JSON.stringify(v));
 
@@ -1043,6 +1061,7 @@ let state = {
   search:'',
   selectedId:null,
   deleteTarget:null,
+  trash: load(KEYS.trash,[]),
   aiAnalysis:'', aiPlan:'', aiSimilar:'', aiDevelop:'', chatHistory:[],
   chatOpen:false, chatSummary:'', summarizing:false,
   loadingAnalysis:false, loadingPlan:false, loadingChat:false,
@@ -1417,7 +1436,7 @@ function renderList() {
 }
 
 function setFilter(f) { state.filter=f; renderList(); }
-$('search-input').addEventListener('input',e=>{state.search=e.target.value;renderList()});
+$('search-input').addEventListener('input',e=>{if(voiceRecognition)stopVoice();state.search=e.target.value;renderList()});
 
 function toggleStar(id) {
   const idea = state.ideas.find(i=>i.id===id);
@@ -1435,17 +1454,21 @@ function tableSort(col) {
 }
 
 let voiceRecognition = null;
+function stopVoice() {
+  if(voiceRecognition) { try{voiceRecognition.stop();}catch(e){} voiceRecognition=null; }
+  const btn=$('voice-btn'); if(btn){btn.classList.remove('listening');btn.textContent='🎤';}
+}
 function toggleVoiceSearch() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SpeechRecognition){ showToast('المتصفح لا يدعم البحث الصوتي'); return; }
+  if(voiceRecognition) { stopVoice(); return; }
   const btn = $('voice-btn');
-  if(voiceRecognition) { voiceRecognition.stop(); voiceRecognition=null; btn.classList.remove('listening'); return; }
   voiceRecognition = new SpeechRecognition();
   voiceRecognition.lang='ar-SA'; voiceRecognition.continuous=false; voiceRecognition.interimResults=false;
-  btn.classList.add('listening');
-  voiceRecognition.onresult = e => { const t=e.results[0][0].transcript; $('search-input').value=t; state.search=t; renderList(); };
-  voiceRecognition.onend = () => { btn.classList.remove('listening'); voiceRecognition=null; };
-  voiceRecognition.onerror = () => { btn.classList.remove('listening'); voiceRecognition=null; showToast('تعذر البحث الصوتي'); };
+  btn.classList.add('listening'); btn.textContent='✕';
+  voiceRecognition.onresult = e => { const t=e.results[0][0].transcript; $('search-input').value=t; state.search=t; renderList(); stopVoice(); };
+  voiceRecognition.onend = () => stopVoice();
+  voiceRecognition.onerror = () => { stopVoice(); showToast('تعذر البحث الصوتي'); };
   voiceRecognition.start();
 }
 
@@ -1507,10 +1530,13 @@ function updateSelCount() {
 }
 function deleteSelected() {
   if(!state.selectedIds.size) return;
-  state.ideas = state.ideas.filter(i=>!state.selectedIds.has(i.id));
-  persist(KEYS.ideas, state.ideas);
+  const now=new Date().toISOString();
+  state.ideas.filter(i=>state.selectedIds.has(i.id)).forEach(i=>{i.deletedAt=now;state.trash.unshift({...i});});
+  persist(KEYS.trash,state.trash);
+  state.ideas=state.ideas.filter(i=>!state.selectedIds.has(i.id));
+  persist(KEYS.ideas,state.ideas);
   exitSelectionMode();
-  showToast('تم الحذف');
+  showToast('نُقلت للسلة');
 }
 
 // ═══════════════════════════════════════════════════
@@ -2235,9 +2261,12 @@ function openDeleteModal(id){
 }
 function closeDeleteModal(){hide('delete-modal');state.deleteTarget=null;}
 function confirmDelete(){
+  const idea=state.ideas.find(i=>i.id===state.deleteTarget);
+  if(idea){idea.deletedAt=new Date().toISOString();state.trash.unshift(idea);persist(KEYS.trash,state.trash);}
   state.ideas=state.ideas.filter(i=>i.id!==state.deleteTarget);
   persist(KEYS.ideas,state.ideas);closeDeleteModal();
   if(state.selectedId===state.deleteTarget) nav('list');
+  showToast('نُقلت للسلة — تُحذف تلقائياً بعد 30 يوم');
   else renderList();
 }
 
@@ -2297,6 +2326,8 @@ function renderSettings(){
   if(state.customTypes.length){$('custom-types-display').textContent=state.customTypes.join(' · ');show('clear-types-btn');}
   else{$('custom-types-display').textContent='—';hide('clear-types-btn');}
   if($('skip-splash-toggle')) $('skip-splash-toggle').checked = !!state.settings.skipSplash;
+  autoExpireTrash();
+  updateTrashLabel();
   $('vt-list').classList.toggle('active',state.settings.viewMode==='list');
   $('vt-grid').classList.toggle('active',state.settings.viewMode==='grid');
   $('vt-table')?.classList.toggle('active',state.settings.viewMode==='table');
@@ -2432,6 +2463,87 @@ function closeSheet(){
   if(s)s.style.transform='translateX(-50%) translateY(100%)';
   if(bd){bd.style.opacity='0';bd.style.pointerEvents='none';}
 }
+
+// ═══════════════════════════════════════════════════
+// TRASH
+// ═══════════════════════════════════════════════════
+function autoExpireTrash() {
+  const cutoff = Date.now() - 30*24*60*60*1000;
+  state.trash = state.trash.filter(i=> new Date(i.deletedAt).getTime() > cutoff);
+  persist(KEYS.trash, state.trash);
+}
+function updateTrashLabel() {
+  const n = state.trash.length;
+  const el = $('trash-count-label');
+  if(el) el.textContent = n ? n + ' فكرة محذوفة' : 'لا توجد أفكار محذوفة';
+}
+function openTrashSheet() {
+  autoExpireTrash();
+  let sheet = $('trash-sheet');
+  if(!sheet){
+    sheet=document.createElement('div');sheet.id='trash-sheet';sheet.className='sheet hidden';
+    document.querySelector('.app').appendChild(sheet);
+    const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='trash-sheet-bd';
+    bd.onclick=closeTrashSheet;document.querySelector('.app').appendChild(bd);
+  }
+  renderTrashSheet();
+  const bd=$('trash-sheet-bd');
+  requestAnimationFrame(()=>{bd.style.opacity='1';bd.style.pointerEvents='auto';sheet.style.transform='translateX(-50%) translateY(0)';sheet.classList.remove('hidden');});
+}
+function closeTrashSheet(){
+  const s=$('trash-sheet'),bd=$('trash-sheet-bd');
+  if(s)s.style.transform='translateX(-50%) translateY(100%)';
+  if(bd){bd.style.opacity='0';bd.style.pointerEvents='none';}
+  updateTrashLabel();
+}
+function renderTrashSheet(){
+  const sheet=$('trash-sheet');if(!sheet)return;
+  if(!state.trash.length){
+    sheet.innerHTML='<div class="sheet-handle"></div><div style="padding:20px;text-align:center;color:var(--text3);font-size:14px">🗑️<br><br>السلة فارغة</div>';
+    return;
+  }
+  const items = state.trash.map((idea,idx)=>{
+    const daysLeft = Math.ceil((new Date(idea.deletedAt).getTime()+30*24*60*60*1000-Date.now())/(1000*60*60*24));
+    return `<div class="trash-item">
+      <div class="trash-dot"></div>
+      <div class="trash-item-info">
+        <div class="trash-item-title">${escHtml(idea.title)}</div>
+        <div class="trash-item-meta">${badgeHTML(idea.category)} · تُحذف بعد ${daysLeft} يوم</div>
+      </div>
+      <div class="trash-item-actions">
+        <button class="btn btn-sm btn-ghost" onclick="restoreFromTrash(${idx})">↩️</button>
+        <button class="btn btn-sm btn-danger" onclick="permDeleteFromTrash(${idx})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  sheet.innerHTML=`<div class="sheet-handle"></div>
+    <div style="padding:0 16px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="font-size:15px;font-weight:700">🗑️ سلة المهملات</div>
+        <button class="btn btn-sm btn-danger" onclick="emptyTrash()">إفراغ الكل</button>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px">الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم</div>
+      ${items}
+    </div>`;
+}
+function restoreFromTrash(idx){
+  const idea=state.trash[idx]; if(!idea)return;
+  delete idea.deletedAt;
+  state.ideas.unshift(idea);
+  state.trash.splice(idx,1);
+  persist(KEYS.ideas,state.ideas);persist(KEYS.trash,state.trash);
+  renderTrashSheet();renderList();showToast('✓ تمت الاستعادة');
+}
+function permDeleteFromTrash(idx){
+  state.trash.splice(idx,1);
+  persist(KEYS.trash,state.trash);
+  renderTrashSheet();showToast('حُذفت نهائياً');
+}
+function emptyTrash(){
+  state.trash=[];persist(KEYS.trash,state.trash);
+  closeTrashSheet();showToast('تم إفراغ السلة');
+}
+
 function setSkipSplash(val) {
   state.settings.skipSplash = val;
   persist(KEYS.settings, state.settings);
