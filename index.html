@@ -457,6 +457,19 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
 /* ── Bottom Sheet (Theme Picker) ── */
 .sheet-backdrop{position:fixed;inset:0;background:#00000070;z-index:400;opacity:0;transition:opacity .25s;pointer-events:none}
+/* Fix: generic bottom sheets used by trash and other panels */
+.sheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:430px;max-height:82vh;overflow-y:auto;
+  background:var(--s1);border-radius:24px 24px 0 0;
+  border-top:1px solid var(--border2);box-shadow:0 -12px 40px rgba(0,0,0,.18);
+  z-index:901;transition:transform .3s cubic-bezier(.32,.72,0,1);
+  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
+  color:var(--text);
+}
+#trash-sheet-bd.sheet-backdrop{z-index:900}
+#generic-sheet-bd.sheet-backdrop{z-index:900}
+
 .sheet-backdrop.show{opacity:1;pointer-events:all}
 .theme-sheet{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
@@ -968,7 +981,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
       <div class="section">
         <div class="srow">
           <div><div class="slabel">الأفكار المحذوفة</div><div class="sdesc" id="trash-count-label">لا توجد أفكار محذوفة</div></div>
-          <button class="btn btn-sm btn-ghost" id="open-trash-btn" onclick="openTrashSheet()">عرض</button>
+          <button type="button" class="btn btn-sm btn-ghost" id="open-trash-btn" onclick="openTrashSheet()">عرض</button>
         </div>
       </div>
 
@@ -2486,17 +2499,25 @@ function openTrashSheet() {
   let sheet = $('trash-sheet');
   if(!sheet){
     sheet=document.createElement('div');sheet.id='trash-sheet';sheet.className='sheet hidden';
-    document.querySelector('.app').appendChild(sheet);
+    (document.querySelector('.app')||document.body).appendChild(sheet);
     const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='trash-sheet-bd';
-    bd.onclick=closeTrashSheet;document.querySelector('.app').appendChild(bd);
+    bd.onclick=closeTrashSheet;(document.querySelector('.app')||document.body).appendChild(bd);
   }
   renderTrashSheet();
   const bd=$('trash-sheet-bd');
-  requestAnimationFrame(()=>{bd.style.opacity='1';bd.style.pointerEvents='auto';sheet.style.transform='translateX(-50%) translateY(0)';sheet.classList.remove('hidden');});
+  // أظهر السلة فوراً قبل تشغيل الحركة حتى لا تمنع .hidden الظهور
+  sheet.classList.remove('hidden');
+  sheet.style.display='block';
+  sheet.style.zIndex='901';
+  sheet.style.transform='translateX(-50%) translateY(100%)';
+  bd.style.zIndex='900';
+  bd.style.opacity='1';
+  bd.style.pointerEvents='auto';
+  requestAnimationFrame(()=>{sheet.style.transform='translateX(-50%) translateY(0)';});
 }
 function closeTrashSheet(){
   const s=$('trash-sheet'),bd=$('trash-sheet-bd');
-  if(s)s.style.transform='translateX(-50%) translateY(100%)';
+  if(s){s.style.transform='translateX(-50%) translateY(100%)'; setTimeout(()=>s.classList.add('hidden'),320);}
   if(bd){bd.style.opacity='0';bd.style.pointerEvents='none';}
   updateTrashLabel();
 }
@@ -2582,7 +2603,7 @@ function openStatsSheet() {
   let sheet = $('stats-sheet');
   if(!sheet){
     sheet=document.createElement('div');sheet.id='stats-sheet';sheet.className='sheet hidden';
-    document.querySelector('.app').appendChild(sheet);
+    (document.querySelector('.app')||document.body).appendChild(sheet);
     const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='stats-sheet-bd';
     bd.onclick=()=>{sheet.style.transform='translateX(-50%) translateY(100%)';bd.style.opacity='0';bd.style.pointerEvents='none';};
     document.querySelector('.app').appendChild(bd);
