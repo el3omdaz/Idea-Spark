@@ -425,7 +425,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
 /* ── Splash Screen ── */
 .splash{
-  position:fixed;inset:0;z-index:1000;
+  position:absolute;inset:0;z-index:1000;
   background:radial-gradient(ellipse at 50% 35%,#1a0f3a 0%,#06060e 65%);
   display:flex;flex-direction:column;align-items:center;
   padding:0 28px;
@@ -529,6 +529,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 </style>
 </head>
 <body>
+<div class="app">
 <!-- Splash Screen -->
 <div class="splash" id="splash">
   <div class="splash-top">
@@ -573,8 +574,6 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
   <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
 </div>
-
-<div class="app">
 
 
   <!-- Selection bar (replaces header in selection mode) -->
