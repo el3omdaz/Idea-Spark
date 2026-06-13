@@ -1695,8 +1695,15 @@ function doSave(){
   const idea={id:Date.now().toString(),title,description:$('idea-desc-input').value.trim(),category:finalCat,createdAt:new Date().toISOString(),analysis:'',plan:'',chatHistory:[]};
   state.ideas.unshift(idea);persist(KEYS.ideas,state.ideas);
   showToast('✓ تم الحفظ');
-  openIdea(idea.id);
-  if(state.settings.aiAuto&&state.apiKey) setTimeout(()=>triggerAnalysis(),100);
+
+  // إذا كان وضع الإعدادات "دفتر ملاحظات فقط"، ارجع مباشرة لصفحة الأفكار.
+  // الرجوع لصفحة التفاصيل يبقى فقط عند تفعيل التحليل التلقائي.
+  if(state.settings.aiAuto && state.apiKey){
+    openIdea(idea.id);
+    setTimeout(()=>triggerAnalysis(),100);
+  } else {
+    nav('list');
+  }
 }
 
 async function doAiQuickSave(){
