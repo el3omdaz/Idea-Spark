@@ -135,6 +135,38 @@
   --text:#2e1a08;--text2:#704829;--text3:#8d6848;
   --shadow:0 4px 20px rgba(160,80,20,.1);
 }
+/* Sunset 🌅 — برتقالي/وردي متدرج دافئ */
+[data-theme="sunset"]{
+  --bg:#2a1530;--s1:#3a1f3e;--s2:#4a2a4c;--s3:#5c3658;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
+  --accent:#ff8a5b;--accent2:#ff5e8e;--accent3:#ffd166;
+  --text:#fff0e8;--text2:#d9a8b8;--text3:#8a5e6e;
+  --shadow:0 4px 24px rgba(255,94,142,.18);
+}
+/* True Black ⚫ — AMOLED */
+[data-theme="trueblack"]{
+  --bg:#000000;--s1:#0a0a0a;--s2:#141414;--s3:#1e1e1e;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.15);
+  --accent:#7b6cf0;--accent2:#0fd9a0;--accent3:#f07b6c;
+  --text:#ffffff;--text2:#9a9a9a;--text3:#555555;
+  --shadow:0 4px 20px rgba(0,0,0,.6);
+}
+/* Sage 🌿 — أخضر فاتح هادئ */
+[data-theme="sage"]{
+  --bg:#eef3ec;--s1:#f8fbf7;--s2:#e2ebe0;--s3:#d4e2d1;
+  --border:rgba(60,100,60,.09);--border2:rgba(60,100,60,.16);
+  --accent:#6b9b6f;--accent2:#5a8ca8;--accent3:#c9764f;
+  --text:#22301f;--text2:#5c7257;--text3:#8aa085;
+  --shadow:0 4px 20px rgba(60,100,60,.08);
+}
+/* Espresso ☕ — بني قهوة دافئ */
+[data-theme="espresso"]{
+  --bg:#1c130c;--s1:#291c12;--s2:#36261a;--s3:#443322;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --accent:#d9a366;--accent2:#a8c08a;--accent3:#e0735a;
+  --text:#f4e9dd;--text2:#b89a82;--text3:#705c4a;
+  --shadow:0 4px 24px rgba(0,0,0,.5);
+}
 
 html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden;transition:background .3s,color .3s}
 body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:17px;-webkit-font-smoothing:antialiased}
@@ -404,6 +436,26 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
 /* Backup section */
 .backup-btn{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+
+/* ── Paywall ── */
+.pw-modal{max-width:360px;text-align:center}
+.pw-icon{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}
+.pw-title{font-size:20px;font-weight:800;margin-bottom:6px}
+.pw-sub{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.6}
+.pw-features{text-align:right;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;background:var(--s2);border-radius:14px;padding:14px}
+[dir="ltr"] .pw-features{text-align:left}
+.pw-feature{font-size:13px;display:flex;align-items:center;gap:8px}
+.pw-plans{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.pw-plan{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--border2);border-radius:14px;padding:13px 16px;cursor:pointer;transition:all .15s;background:var(--s1)}
+.pw-plan:active{transform:scale(.98)}
+.pw-plan.recommended{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.pw-plan-name{font-size:14px;font-weight:700}
+.pw-plan-badge{font-size:10px;background:var(--accent);color:#fff;border-radius:6px;padding:2px 7px;font-weight:700;margin-inline-start:6px}
+.pw-plan-price{font-size:14px;font-weight:800;color:var(--accent)}
+.pw-plan-price small{font-size:11px;font-weight:600;color:var(--text2)}
+.pw-restore{font-size:12px;color:var(--text2);background:none;border:none;cursor:pointer;margin-top:8px;text-decoration:underline;font-family:inherit}
+.pw-close{font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;margin-top:14px;font-family:inherit}
+.pro-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:8px}
 .backup-btn:last-child{border-bottom:none}
 .backup-btn:active{background:var(--s2)}
 .backup-btn-icon{font-size:20px;width:36px;height:36px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -873,6 +925,12 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
       <button class="back-btn" onclick="nav('list')" style="margin-bottom:12px"><span class="back-arrow-circle">→</span><span data-ar="أفكاري" data-en="Ideas">أفكاري</span></button>
       <div class="settings-title">⚙️ الإعدادات</div>
 
+      <!-- Pro Status -->
+      <div class="section-label" data-ar="الاشتراك" data-en="Subscription">الاشتراك</div>
+      <div class="section">
+        <div class="srow-block" id="pro-status-block"></div>
+      </div>
+
       <!-- API Key -->
       <div class="section-label">مفتاح API الشخصي</div>
       <div class="section">
@@ -1063,6 +1121,38 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   </div>
 </div>
 
+<!-- Paywall Modal -->
+<div class="overlay hidden" id="paywall-modal">
+  <div class="modal pw-modal">
+    <div class="pw-icon">⭐</div>
+    <div class="pw-title" data-ar="ترقية إلى IdeaSpark Pro" data-en="Upgrade to IdeaSpark Pro">ترقية إلى IdeaSpark Pro</div>
+    <div class="pw-sub" data-ar="وصلت للحد المجاني. افتح كل المزايا بلا حدود" data-en="You've reached the free limit. Unlock everything without limits">وصلت للحد المجاني. افتح كل المزايا بلا حدود</div>
+    <div class="pw-features">
+      <div class="pw-feature">✅ <span data-ar="أفكار غير محدودة" data-en="Unlimited ideas">أفكار غير محدودة</span></div>
+      <div class="pw-feature">✅ <span data-ar="كل الثيمات" data-en="All themes">كل الثيمات</span></div>
+      <div class="pw-feature">✅ <span data-ar="نسخ احتياطي واستعادة" data-en="Backup & restore">نسخ احتياطي واستعادة</span></div>
+      <div class="pw-feature">✅ <span data-ar="خطة تنفيذ + أفكار مشابهة" data-en="Execution plan + similar ideas">خطة تنفيذ + أفكار مشابهة</span></div>
+    </div>
+    <div class="pw-plans">
+      <div class="pw-plan recommended" onclick="purchasePlan('yearly')">
+        <div><span class="pw-plan-name" data-ar="سنوي" data-en="Yearly">سنوي</span><span class="pw-plan-badge" data-ar="وفّر 40%" data-en="Save 40%">وفّر 40%</span></div>
+        <div class="pw-plan-price">$19.99<small> / <span data-ar="سنة" data-en="year">سنة</span></small></div>
+      </div>
+      <div class="pw-plan" onclick="purchasePlan('monthly')">
+        <div class="pw-plan-name" data-ar="شهري" data-en="Monthly">شهري</div>
+        <div class="pw-plan-price">$2.99<small> / <span data-ar="شهر" data-en="month">شهر</span></small></div>
+      </div>
+      <div class="pw-plan" onclick="purchasePlan('lifetime')">
+        <div class="pw-plan-name" data-ar="مدى الحياة" data-en="Lifetime">مدى الحياة</div>
+        <div class="pw-plan-price">$39.99<small> · <span data-ar="مرة واحدة" data-en="once">مرة واحدة</span></small></div>
+      </div>
+    </div>
+    <button class="pw-restore" onclick="restorePurchases()" data-ar="استرجاع المشتريات" data-en="Restore purchases">استرجاع المشتريات</button>
+    <br>
+    <button class="pw-close" onclick="hide('paywall-modal')" data-ar="ليس الآن" data-en="Not now">ليس الآن</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 
@@ -1071,7 +1161,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 // ═══════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════
-const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key', trash:'ispark_trash_v1' };
+const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key', trash:'ispark_trash_v1', pro:'ispark_is_pro' };
 const load = (k,d) => { try{return JSON.parse(localStorage.getItem(k))??d}catch{return d} };
 const persist = (k,v) => localStorage.setItem(k,JSON.stringify(v));
 
@@ -1274,8 +1364,11 @@ function currentLangName(){ return currentLang()[1]; }
 function currentLocale(){ return currentLang()[2] || 'en-GB'; }
 function aiLangInstruction(){ return state.settings.lang==='ar' ? 'اكتب بالعربية.' : `Write the entire response in ${currentLangName()}.`; }
 
+const FREE_IDEA_LIMIT = 10;
+
 let state = {
   ideas: load(KEYS.ideas,[]),
+  isPro: localStorage.getItem(KEYS.pro)==='1',
   settings: load(KEYS.settings,{ lang:'ar', country:'', aiAuto:true, theme:'dark', viewMode:'list' }),
   customTypes: load(KEYS.types,[]),
   apiKey: localStorage.getItem(KEYS.api)||'',
@@ -1335,14 +1428,18 @@ function setModel(id) {
 
 const THEMES = [
   { id:'dark',     label:'Dark',      bg:'#08080f', dot:'#7b6cf0' },
+  { id:'trueblack',label:'True Black ⚫', bg:'#000000', dot:'#7b6cf0' },
   { id:'neon',     label:'Neon ⚡',   bg:'#040408', dot:'#00ffb4' },
   { id:'velvet',   label:'Velvet',    bg:'#1a0820', dot:'#c48be0' },
   { id:'navy',     label:'Navy',      bg:'#07013f', dot:'#8888ff' },
+  { id:'sunset',   label:'Sunset 🌅', bg:'#2a1530', dot:'#ff8a5b' },
+  { id:'espresso', label:'Espresso ☕', bg:'#1c130c', dot:'#d9a366' },
   { id:'sky',      label:'Sky',       bg:'#0e2d4a', dot:'#58aadc' },
   { id:'ocean',    label:'Ocean',     bg:'#0d3d6e', dot:'#7dd4f8' },
   { id:'forest',   label:'Forest',    bg:'#243d3c', dot:'#7dc4b8' },
   { id:'noir',     label:'Noir',      bg:'#1a1710', dot:'#d4a84b' },
   { id:'sienna',   label:'Sienna 🍊', bg:'#f8f0e8', dot:'#c8622a' },
+  { id:'sage',     label:'Sage 🌿',   bg:'#eef3ec', dot:'#6b9b6f' },
   { id:'beige',    label:'Beige',     bg:'#f2e9dc', dot:'#8b5e3c' },
   { id:'rose',     label:'Rose',      bg:'#f5e9e9', dot:'#b05070' },
   { id:'sakura',   label:'Sakura 🌸', bg:'#fdf0f5', dot:'#d4629a' },
@@ -1894,6 +1991,7 @@ function renderSavedTypes(){
 }
 
 function doSave(){
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
   const title=$('idea-title-input').value.trim();
   if(!title){$('title-error').textContent='اكتب عنوان الفكرة';show('title-error');return;}
   hide('title-error');
@@ -1917,6 +2015,7 @@ function doSave(){
 }
 
 async function doAiQuickSave(){
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
   const prompt=$('ai-quick-input').value.trim();
   if(!prompt){$('ai-quick-error').textContent='اكتب وصف الفكرة أولاً';show('ai-quick-error');return;}
   if(!state.apiKey){$('ai-quick-error').textContent='⚠️ أدخل مفتاح API من الإعدادات';show('ai-quick-error');return;}
@@ -2454,6 +2553,7 @@ function wzEdit(){
 
 function wzConfirmSave(){
   if(!wz?.result) return;
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
   const r=wz.result;
   const analysisSeed=
     `**التقييم:**\n`+
@@ -2547,6 +2647,27 @@ function confirmRestore(){
 // SETTINGS
 // ═══════════════════════════════════════════════════
 function renderSettings(){
+  const isAr = state.settings.lang === 'ar';
+  const proBlock = $('pro-status-block');
+  if(proBlock){
+    if(state.isPro){
+      proBlock.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div class="slabel"><span class="pro-badge">⭐ PRO</span></div>
+            <div class="sdesc" style="margin-top:6px">${isAr?'كل المزايا مفتوحة — شكراً لدعمك!':'All features unlocked — thanks for your support!'}</div>
+          </div>
+        </div>`;
+    } else {
+      const used = state.ideas.length;
+      proBlock.innerHTML = `
+        <div class="slabel">${isAr?'النسخة المجانية':'Free plan'}</div>
+        <div class="sdesc" style="margin:4px 0 12px">${isAr ? `${used} / ${FREE_IDEA_LIMIT} فكرة مستخدمة` : `${used} / ${FREE_IDEA_LIMIT} ideas used`}</div>
+        <button class="btn btn-primary btn-sm" onclick="show('paywall-modal')">⭐ ${isAr?'الترقية إلى Pro':'Upgrade to Pro'}</button>
+        <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="restorePurchases()">${isAr?'استرجاع المشتريات':'Restore purchases'}</button>`;
+    }
+  }
+
   state.apiKey?show('api-key-saved-state'):hide('api-key-saved-state');
   state.apiKey?hide('api-key-input-state'):show('api-key-input-state');
   $('api-key-input').value='';
@@ -2659,9 +2780,100 @@ function clearCustomTypes(){
 
 
 // ═══════════════════════════════════════════════════
+// IN-APP PURCHASES (RevenueCat)
+// ═══════════════════════════════════════════════════
+// Product IDs — must match exactly what you configure in:
+//   App Store Connect / Google Play Console  →  RevenueCat dashboard
+const RC_API_KEY = {
+  ios: 'YOUR_REVENUECAT_IOS_PUBLIC_KEY',     // appl_xxxxxxxx
+  android: 'YOUR_REVENUECAT_ANDROID_PUBLIC_KEY', // goog_xxxxxxxx
+};
+const RC_PACKAGE_IDS = {
+  monthly: '$rc_monthly',
+  yearly: '$rc_annual',
+  lifetime: 'lifetime', // non-subscription one-time product identifier
+};
+const RC_ENTITLEMENT = 'pro'; // the Entitlement identifier you create in RevenueCat
+
+function getPurchasesPlugin(){
+  // Available once the app is wrapped with Capacitor + @revenuecat/purchases-capacitor
+  return window?.Capacitor?.Plugins?.Purchases || window?.Purchases || null;
+}
+
+async function initPurchases(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){ return; } // running in plain browser/PWA — IAP unavailable
+  try{
+    const platform = window?.Capacitor?.getPlatform?.() || 'ios';
+    const apiKey = platform === 'android' ? RC_API_KEY.android : RC_API_KEY.ios;
+    await Purchases.configure({ apiKey });
+    await refreshProStatus();
+  }catch(e){ console.log('RC init error', e); }
+}
+
+async function refreshProStatus(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases) return;
+  try{
+    const { customerInfo } = await Purchases.getCustomerInfo();
+    setProStatus(!!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT]);
+  }catch(e){ console.log('RC status error', e); }
+}
+
+function setProStatus(isPro){
+  state.isPro = !!isPro;
+  localStorage.setItem(KEYS.pro, state.isPro ? '1' : '0');
+  if(state.isPro) hide('paywall-modal');
+  if(state.currentView==='settings') renderSettings();
+}
+
+async function purchasePlan(plan){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){
+    showToast(uiText('⚠️ الشراء متاح فقط داخل التطبيق من المتجر','⚠️ Purchases are only available in the store app'));
+    return;
+  }
+  try{
+    const offerings = await Purchases.getOfferings();
+    const pkgId = RC_PACKAGE_IDS[plan];
+    const pkg = offerings?.current?.availablePackages?.find(p=>p.identifier===pkgId)
+             || offerings?.current?.[plan === 'monthly' ? 'monthly' : plan === 'yearly' ? 'annual' : null];
+    if(!pkg) throw new Error('package_not_found');
+    const { customerInfo } = await Purchases.purchasePackage({ aPackage: pkg });
+    const active = !!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT];
+    setProStatus(active);
+    if(active) showToast(uiText('✓ تم تفعيل Pro بنجاح','✓ Pro activated successfully'));
+  }catch(e){
+    if(e?.userCancelled || e?.code === '1') return; // user cancelled, no error toast
+    showToast(uiText('❌ تعذّر إكمال الشراء','❌ Purchase could not be completed'));
+  }
+}
+
+async function restorePurchases(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){
+    showToast(uiText('⚠️ متاح فقط داخل التطبيق من المتجر','⚠️ Only available in the store app'));
+    return;
+  }
+  try{
+    const { customerInfo } = await Purchases.restorePurchases();
+    const active = !!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT];
+    setProStatus(active);
+    showToast(active
+      ? uiText('✓ تم استرجاع اشتراكك','✓ Your purchase was restored')
+      : uiText('لم يتم العثور على مشتريات سابقة','No previous purchases found'));
+  }catch(e){
+    showToast(uiText('❌ تعذّر الاسترجاع','❌ Restore failed'));
+  }
+}
+
+
+
+// ═══════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════
 if('serviceWorker'in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+initPurchases();
 
 // apply saved theme
 applyTheme(state.settings.theme||'dark');
@@ -2807,17 +3019,19 @@ function closeTrashSheet(){
 }
 function renderTrashSheet(){
   const sheet=$('trash-sheet');if(!sheet)return;
+  const isAr = state.settings.lang === 'ar';
   if(!state.trash.length){
-    sheet.innerHTML='<div class="sheet-handle"></div><div style="padding:20px;text-align:center;color:var(--text3);font-size:14px">🗑️<br><br>السلة فارغة</div>';
+    sheet.innerHTML=`<div class="sheet-handle"></div><div style="padding:20px;text-align:center;color:var(--text3);font-size:14px">🗑️<br><br>${isAr?'السلة فارغة':'Trash is empty'}</div>`;
     return;
   }
   const items = state.trash.map((idea,idx)=>{
     const daysLeft = Math.ceil((new Date(idea.deletedAt).getTime()+30*24*60*60*1000-Date.now())/(1000*60*60*24));
+    const daysTxt = isAr ? `تُحذف بعد ${daysLeft} يوم` : `Deletes in ${daysLeft} day${daysLeft===1?'':'s'}`;
     return `<div class="trash-item">
       <div class="trash-dot"></div>
       <div class="trash-item-info">
         <div class="trash-item-title">${escHtml(idea.title)}</div>
-        <div class="trash-item-meta">${badgeHTML(idea.category)} · تُحذف بعد ${daysLeft} يوم</div>
+        <div class="trash-item-meta">${badgeHTML(idea.category)} · ${daysTxt}</div>
       </div>
       <div class="trash-item-actions">
         <button class="btn btn-sm btn-ghost" onclick="restoreFromTrash(${idx})">↩️</button>
@@ -2828,10 +3042,10 @@ function renderTrashSheet(){
   sheet.innerHTML=`<div class="sheet-handle"></div>
     <div style="padding:0 16px 16px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <div style="font-size:15px;font-weight:700">🗑️ سلة المهملات</div>
-        <button class="btn btn-sm btn-danger" onclick="emptyTrash()">إفراغ الكل</button>
+        <div style="font-size:15px;font-weight:700">🗑️ ${isAr?'سلة المهملات':'Trash'}</div>
+        <button class="btn btn-sm btn-danger" onclick="emptyTrash()">${isAr?'إفراغ الكل':'Empty all'}</button>
       </div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:12px">الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px">${isAr?'الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'Ideas are permanently deleted automatically after 30 days'}</div>
       ${items}
     </div>`;
 }
@@ -2841,7 +3055,7 @@ function restoreFromTrash(idx){
   state.ideas.unshift(idea);
   state.trash.splice(idx,1);
   persist(KEYS.ideas,state.ideas);persist(KEYS.trash,state.trash);
-  renderTrashSheet();renderList();showToast('✓ تمت الاستعادة');
+  renderTrashSheet();renderList();showToast(uiText('✓ تمت الاستعادة','✓ Restored'));
 }
 function permDeleteFromTrash(idx){
   state.trash.splice(idx,1);
@@ -2850,7 +3064,7 @@ function permDeleteFromTrash(idx){
 }
 function emptyTrash(){
   state.trash=[];persist(KEYS.trash,state.trash);
-  closeTrashSheet();showToast('تم إفراغ السلة');
+  closeTrashSheet();showToast(uiText('تم إفراغ السلة','Trash emptied'));
 }
 
 function setSkipSplash(val) {
