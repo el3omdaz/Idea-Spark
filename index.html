@@ -426,33 +426,40 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 /* ── Splash Screen ── */
 .splash{
   position:fixed;inset:0;z-index:1000;
+  height:100vh;height:100dvh;
   background:radial-gradient(ellipse at 50% 35%,#1a0f3a 0%,#06060e 65%);
   display:flex;flex-direction:column;align-items:center;
-  padding:0 28px;
-  padding-top:max(env(safe-area-inset-top,44px),56px);
-  padding-bottom:max(env(safe-area-inset-bottom,34px),40px);
+  padding:0 24px;
+  padding-top:max(env(safe-area-inset-top,30px),30px);
+  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
   transition:opacity .5s ease,transform .5s ease;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  gap:0;
 }
 .splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
-.splash-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.splash-icon-wrap{position:relative;margin-bottom:28px;animation:splash-pop .6s cubic-bezier(.34,1.56,.64,1) both}
-.splash-glow{position:absolute;inset:-24px;border-radius:50px;background:radial-gradient(circle,rgba(123,108,240,.35) 0%,transparent 70%);animation:glow-pulse 2.2s ease-in-out infinite}
-.splash-icon{width:110px;height:110px;border-radius:30px;background:linear-gradient(145deg,#18182e,#0e0e1c);border:1.5px solid rgba(123,108,240,.35);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;box-shadow:0 0 0 1px rgba(123,108,240,.12),0 20px 56px rgba(123,108,240,.28),inset 0 1px 0 rgba(255,255,255,.05)}
+.splash-top{display:flex;flex-direction:column;align-items:center;width:100%;margin:auto 0}
+.splash-icon-wrap{position:relative;margin-bottom:12px;animation:splash-pop .6s cubic-bezier(.34,1.56,.64,1) both;flex-shrink:0}
+.splash-glow{position:absolute;inset:-16px;border-radius:38px;background:radial-gradient(circle,rgba(123,108,240,.35) 0%,transparent 70%);animation:glow-pulse 2.2s ease-in-out infinite}
+.splash-icon{width:64px;height:64px;border-radius:20px;background:linear-gradient(145deg,#18182e,#0e0e1c);border:1.5px solid rgba(123,108,240,.35);display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;box-shadow:0 0 0 1px rgba(123,108,240,.12),0 12px 32px rgba(123,108,240,.28),inset 0 1px 0 rgba(255,255,255,.05)}
 @keyframes splash-pop{from{transform:scale(.4) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
 @keyframes glow-pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
-.splash-name{font-size:40px;font-weight:800;letter-spacing:-.8px;background:linear-gradient(90deg,#7b6cf0,#0fd9a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;animation:sfade .5s .25s both}
-.splash-tagline{font-size:15px;color:rgba(255,255,255,.5);text-align:center;line-height:1.75;animation:sfade .5s .4s both}
+.splash-name{font-size:28px;font-weight:800;letter-spacing:-.6px;background:linear-gradient(90deg,#7b6cf0,#0fd9a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;animation:sfade .5s .25s both;flex-shrink:0}
+.splash-tagline{font-size:13px;color:rgba(255,255,255,.5);text-align:center;line-height:1.5;animation:sfade .5s .4s both;flex-shrink:0}
 .splash-tagline b{color:#0fd9a0;font-weight:700}
-.splash-creator{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:20px;animation:sfade .5s .55s both}
+.splash-creator{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:10px;animation:sfade .5s .55s both;flex-shrink:0}
 .splash-creator b{color:rgba(123,108,240,.9);font-weight:700;letter-spacing:1px}
-.splash-social{display:flex;gap:9px;margin-top:18px;animation:sfade .5s .65s both}
-.soc-btn{display:flex;flex-direction:column;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:15px;padding:11px 10px;cursor:pointer;text-decoration:none;transition:all .2s;min-width:68px}
+.splash-social{display:flex;gap:7px;margin-top:10px;animation:sfade .5s .65s both;flex-shrink:0;flex-wrap:wrap;justify-content:center}
+.soc-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:7px 9px;cursor:pointer;text-decoration:none;transition:all .2s;min-width:58px}
 .soc-btn:active{transform:scale(.94);background:rgba(255,255,255,.1)}
-.soc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.soc-name{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.55);white-space:nowrap}
-.splash-start{width:100%;padding:17px;border-radius:18px;border:none;cursor:pointer;background:linear-gradient(135deg,#7b6cf0,#9d5fe8);color:#fff;font-family:inherit;font-size:17px;font-weight:700;box-shadow:0 8px 30px rgba(123,108,240,.45);transition:all .2s;margin-top:24px;animation:sfade .5s .75s both;display:flex;align-items:center;justify-content:center;gap:10px}
+.soc-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.soc-name{font-size:9px;font-weight:700;color:rgba(255,255,255,.55);white-space:nowrap}
+.splash-lang-box{margin-top:10px;width:min(320px,92%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.splash-lang-title{font-size:11px;color:rgba(255,255,255,.72);font-weight:800;text-align:center}
+.splash-lang-select{width:100%;background:rgba(0,0,0,.28);color:white;border:1px solid rgba(255,255,255,.22);border-radius:11px;padding:9px 12px;font-family:inherit;font-size:13px;font-weight:800;outline:none}
+.splash-lang-select option{background:#15151f;color:white}
+.splash-start{width:100%;padding:14px;border-radius:16px;border:none;cursor:pointer;background:linear-gradient(135deg,#7b6cf0,#9d5fe8);color:#fff;font-family:inherit;font-size:15px;font-weight:700;box-shadow:0 8px 30px rgba(123,108,240,.45);transition:all .2s;margin-top:12px;animation:sfade .5s .75s both;display:flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;width:100%;max-width:340px}
 .splash-start:active{transform:scale(.97);box-shadow:0 4px 14px rgba(123,108,240,.35)}
-.splash-ver{font-size:11px;color:rgba(255,255,255,.18);margin-top:12px;animation:sfade .5s .85s both}
+.splash-ver{font-size:10px;color:rgba(255,255,255,.18);margin-top:6px;animation:sfade .5s .85s both;flex-shrink:0}
 @keyframes sfade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
 /* ── Bottom Sheet (Theme Picker) ── */
@@ -552,7 +559,11 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
       <div class="splash-icon">💡</div>
     </div>
     <div class="splash-name">IdeaSpark</div>
-    <div class="splash-tagline">فكرتك تستحق أن تُرى<br><b>حوّلها إلى مشروع حقيقي</b> بقوة الذكاء الاصطناعي</div>
+    <div class="splash-tagline" id="splash-tagline">Your idea deserves to become a real project<br><span style="font-size:13px;opacity:.78">فكرتك تستحق أن تصبح مشروعاً حقيقياً</span><br><b>Powered by AI</b><br><span style="font-size:13px;opacity:.78">مدعوم بالذكاء الاصطناعي</span></div>
+    <div class="splash-lang-box">
+      <div class="splash-lang-title" id="splash-lang-title">اختر لغة التطبيق · Choose app language</div>
+      <select id="splash-lang-select" class="splash-lang-select" onchange="setLang(this.value)"></select>
+    </div>
     <div class="splash-creator">CREATED BY <b>M. ALQATTAN</b></div>
     <div class="splash-social">
       <a class="soc-btn" href="https://www.facebook.com/share/1F5ecZv453/?mibextid=wwXIfr" target="_blank">
@@ -583,9 +594,9 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   </div>
   <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:16px;">
     <input type="checkbox" id="splash-skip-cb" style="width:18px;height:18px;accent-color:#7b6cf0;cursor:pointer">
-    <span style="font-size:13px;color:rgba(255,255,255,.45)">تخطي هذه الشاشة في المرة القادمة</span>
+    <span id="splash-skip-text" style="font-size:13px;color:rgba(255,255,255,.45)">تخطي هذه الشاشة في المرة القادمة · Skip this screen next time</span>
   </label>
-  <button class="splash-start" onclick="dismissSplash()">ابدأ الآن ←</button>
+  <button class="splash-start" id="splash-start-btn" onclick="dismissSplash()">ابدأ الآن · Start now ←</button>
   <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
 </div>
 
@@ -593,11 +604,11 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
   <!-- Selection bar (replaces header in selection mode) -->
   <div class="sel-bar" id="sel-bar">
-    <button class="sel-btn sel-cancel-btn" onclick="exitSelectionMode()">إلغاء</button>
+    <button class="sel-btn sel-cancel-btn" onclick="exitSelectionMode()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
     <span class="sel-count" id="sel-count">0 محدد</span>
     <div class="sel-actions">
-      <button class="sel-btn sel-all-btn" onclick="selectAll()">تحديد الكل</button>
-      <button class="sel-btn sel-del-btn" onclick="deleteSelected()">🗑️ حذف</button>
+      <button class="sel-btn sel-all-btn" onclick="selectAll()" data-ar="تحديد الكل" data-en="Select all">تحديد الكل</button>
+      <button class="sel-btn sel-del-btn" onclick="deleteSelected()" data-ar="🗑️ حذف" data-en="🗑️ Delete">🗑️ حذف</button>
     </div>
   </div>
 
@@ -665,7 +676,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
           <datalist id="saved-types-list"></datalist>
         </div>
         <div class="form-actions">
-          <button class="btn btn-primary" id="save-btn" onclick="doSave()">حفظ الفكرة</button>
+          <button class="btn btn-primary" id="save-btn" onclick="doSave()" data-ar="حفظ الفكرة" data-en="Save idea">حفظ الفكرة</button>
           <button class="btn btn-ghost" onclick="nav('list')">📋 أفكاري</button>
         </div>
       </div>
@@ -688,7 +699,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
           <button class="btn btn-primary" id="ai-quick-btn" onclick="doAiQuickSave()">
             <span>✨ توليد الفكرة</span>
           </button>
-          <button class="btn btn-ghost" onclick="nav('list')">إلغاء</button>
+          <button class="btn btn-ghost" onclick="nav('list')" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
         </div>
       </div>
     </div>
@@ -775,7 +786,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
           <div class="form-actions">
             <button class="btn btn-primary" onclick="wzConfirmSave()">✅ تأكيد الحفظ</button>
             <button class="btn btn-outline" onclick="wzEdit()">✏️ تعديل</button>
-            <button class="btn btn-ghost" onclick="wizardExit()">إلغاء</button>
+            <button class="btn btn-ghost" onclick="wizardExit()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
           </div>
         </div>
         <button class="wz-analyze-btn hidden" id="wz-retry-btn" onclick="wzFinalAnalysis()">🔁 إعادة المحاولة</button>
@@ -810,7 +821,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
       </div>
       <div id="no-key-banner" class="no-key-banner hidden">
         <span id="no-key-txt"></span>
-        <button class="btn btn-sm btn-ghost" onclick="nav('settings')" id="go-settings-btn">الإعدادات</button>
+        <button class="btn btn-sm btn-ghost" onclick="nav('settings')" id="go-settings-btn" data-ar="الإعدادات" data-en="Settings">الإعدادات</button>
       </div>
       <div id="analysis-off-banner" class="analysis-off hidden"></div>
       <div class="btn-row" id="ai-btns">
@@ -859,7 +870,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 
     <!-- SETTINGS -->
     <div class="screen" id="screen-settings">
-      <button class="back-btn" onclick="nav('list')" style="margin-bottom:12px"><span class="back-arrow-circle">→</span><span>أفكاري</span></button>
+      <button class="back-btn" onclick="nav('list')" style="margin-bottom:12px"><span class="back-arrow-circle">→</span><span data-ar="أفكاري" data-en="Ideas">أفكاري</span></button>
       <div class="settings-title">⚙️ الإعدادات</div>
 
       <!-- API Key -->
@@ -917,19 +928,16 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
       </div>
 
       <!-- Language -->
-      <div class="section-label">اللغة</div>
+      <div class="section-label" data-ar="اللغة" data-en="Language">اللغة</div>
       <div class="section">
         <div class="srow">
-          <div class="slabel">اللغة</div>
-          <div class="lang-toggle">
-            <button class="lang-opt" id="lang-ar" onclick="setLang('ar')">عربي</button>
-            <button class="lang-opt" id="lang-en" onclick="setLang('en')">EN</button>
-          </div>
+          <div class="slabel" data-ar="اللغة" data-en="Language">اللغة</div>
+          <select id="lang-select" onchange="setLang(this.value)" style="background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:12px;padding:9px 12px;font-family:inherit;font-size:13px;font-weight:700;outline:none;cursor:pointer;max-width:220px"></select>
         </div>
       </div>
 
       <!-- Country -->
-      <div class="section-label">بلدك</div>
+      <div class="section-label" data-ar="بلدك" data-en="Country">بلدك</div>
       <div class="section">
         <div class="srow-block">
           <div class="sdesc" style="margin-bottom:8px">يُستخدم لاقتراح موردين محليين</div>
@@ -992,7 +1000,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
   <div class="bottom-nav" id="bottom-nav">
     <button class="nav-btn active" id="nav-list" onclick="nav('list')">
       <span class="nav-icon">📋</span>
-      <span>أفكاري</span>
+      <span data-ar="أفكاري" data-en="Ideas">أفكاري</span>
     </button>
     <div class="fab-wrap">
       <div class="fab-menu hidden" id="fab-menu">
@@ -1037,7 +1045,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
     <p id="delete-idea-name"></p>
     <p style="font-size:12px;color:var(--text3);margin-top:4px">ستنتقل إلى سلة المهملات</p>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeDeleteModal()">إلغاء</button>
+      <button class="btn btn-ghost" onclick="closeDeleteModal()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
       <button class="btn btn-danger" onclick="confirmDelete()">حذف</button>
     </div>
   </div>
@@ -1049,7 +1057,7 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
     <h3>⚠️ استعادة البيانات</h3>
     <p>هذا الإجراء سيحل محل كل أفكارك الحالية. هل أنت متأكد؟</p>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="hide('restore-modal')">إلغاء</button>
+      <button class="btn btn-ghost" onclick="hide('restore-modal')" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
       <button class="btn btn-danger" onclick="confirmRestore()">استعادة</button>
     </div>
   </div>
@@ -1066,6 +1074,205 @@ body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:
 const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key', trash:'ispark_trash_v1' };
 const load = (k,d) => { try{return JSON.parse(localStorage.getItem(k))??d}catch{return d} };
 const persist = (k,v) => localStorage.setItem(k,JSON.stringify(v));
+
+const LANGUAGES = [
+  ['ar','العربية','ar-KW'],['en','English','en-GB']
+];
+
+const UI_TRANSLATIONS = {
+  en: {
+    'فكرة جديدة':'✨ New idea','عنوان الفكرة':'Idea title','اكتب فكرتك...':'Write your idea...','تفاصيل (اختياري)':'Details (optional)','أي تفاصيل إضافية':'Any extra details','نوع الفكرة':'Idea type','حفظ الفكرة':'Save idea','أفكاري':'Ideas','المفضلة':'Favorites','الإعدادات':'Settings','اللغة':'Language','بلدك':'Country','اختر اللغة':'Choose language','اختر لغة التطبيق':'Choose app language','إلغاء':'Cancel','تحديد الكل':'Select all','حذف':'Delete','جديدة':'New','قيد الدراسة':'Studying','مرفوضة':'Rejected','منفّذة':'Done','ابحث في أفكارك…':'Search your ideas…','احفظ أفكارك وطورها بالذكاء الاصطناعي':'Save your ideas and grow them with AI','لا توجد أفكار بعد':'No ideas yet','ابدأ بإضافة فكرة جديدة':'Start by adding a new idea','المظهر':'Theme','تجربة الاستخدام':'Experience','تخطي شاشة البداية':'Skip splash screen','فتح التطبيق مباشرة دون عرض الشاشة الترحيبية':'Open the app directly without the welcome screen','سلة المهملات':'Trash','الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'Ideas are permanently deleted automatically after 30 days','مسح الكل':'Clear all','المفضلة':'Favorites','كل الأفكار':'All ideas','بحث':'Search','رجوع':'Back','تحليل تلقائي':'Automatic analysis','دفتر ملاحظات فقط':'Notebook only','المشروع':'Project','تجربة':'Experiment','تجاري':'Commercial',
+    '0 محدد':'0 selected',
+    '1. افتح':'1. Open',
+    '2. من القائمة اختر «API Keys»':'2. From the menu choose «API Keys»',
+    '3. اضغط «Create Key» وانسخ المفتاح':'3. Click «Create Key» and copy the key',
+    '4. الصقه هنا — التوكنز تُحتسب من حسابك على OpenRouter':'4. Paste it here — tokens are billed to your OpenRouter account',
+    'أي تفاصيل إضافية...':'Any additional details...',
+    'إدارة البيانات':'Data Management',
+    'إعلانات':'Ads',
+    'ابحث...':'Search...',
+    'احفظ أفكارك كما هي، التحليل اختياري':'Keep your ideas as-is, analysis is optional',
+    'اختر الثيم':'Choose theme',
+    'اختر النموذج المناسب':'Choose the right model',
+    'استعادة':'Restore',
+    'استعادة من نسخة احتياطية':'Restore from Backup',
+    'استيراد ملف JSON سابق':'Import a previous JSON file',
+    'اشتراك شهري':'Monthly subscription',
+    'اكتب جملة واحدة، الذكاء الاصطناعي يكمّل الباقي':'Write one sentence, AI completes the rest',
+    'اكتب ردك...':'Type your reply...',
+    'اكتب فكرتك بجملة أو جملتين...':'Describe your idea in one or two sentences...',
+    'اكتب نوعاً مخصصاً...':'Type a custom type...',
+    'اكتب هنا...':'Type here...',
+    'الأفكار المحذوفة':'Deleted Ideas',
+    'الأنواع المخصصة':'Custom Types',
+    'المفتاح محفوظ على جهازك فقط ✓':'Key stored on your device only ✓',
+    'النموذج':'Model',
+    'بعد حفظ الفكرة يبدأ التحليل فوراً':'Analysis starts right after saving the idea',
+    'بيع مباشر':'Direct sales',
+    'تجربة وتعلّم':'Experiment & learn',
+    'تحليل تلقائي عند الحفظ':'Automatic analysis on save',
+    'تصدير النسخة الاحتياطية':'Export Backup',
+    'حذف المفتاح':'Delete Key',
+    'حفظ':'Save',
+    'حفظ كل أفكارك كملف JSON':'Save all your ideas as a JSON file',
+    'حل مشكلة شخصية أو عامة':'Solve a personal or general problem',
+    'خدمة مدفوعة':'Paid service',
+    'خروج':'Exit',
+    'رجوع لأفكاري':'Back to my ideas',
+    'ستنتقل إلى سلة المهملات':'It will move to Trash',
+    'عرض':'View',
+    'عمولة / وساطة':'Commission / brokerage',
+    'غير ربحي':'Non-profit',
+    'غير محدد بعد':'Not decided yet',
+    'فكرة بالذكاء الاصطناعي':'AI Idea',
+    'فكرة موجّهة (محادثة + تحليل)':'Guided idea (chat + analysis)',
+    'فكرة نصية':'Text Idea',
+    'كيف أحصل على المفتاح؟ ▼':'How do I get a key? ▼',
+    'لا توجد أفكار محذوفة':'No deleted ideas',
+    'متوسط':'Medium',
+    'مثال: "أبي أبيع عطور كويتية أونلاين" أو "اختراع لتوفير الماء في المنزل"':'e.g. "I want to sell Kuwaiti perfumes online" or "An invention to save water at home"',
+    'مثال: الكويت، السعودية...':'e.g. USA, UK...',
+    'مشروع ربحي':'For-profit project',
+    'مشروع مجتمعي / غير ربحي':'Community / non-profit project',
+    'مفتاح API الشخصي':'Personal API Key',
+    'مفتاح OpenRouter API':'OpenRouter API Key',
+    'موديل الذكاء الاصطناعي':'AI Model',
+    'نوع مخصص':'Custom type',
+    'هذا الإجراء سيحل محل كل أفكارك الحالية. هل أنت متأكد؟':'This action will replace all your current ideas. Are you sure?',
+    'وضع الذكاء الاصطناعي':'AI Mode',
+    'يُستخدم لاقتراح موردين محليين':'Used to suggest local suppliers',
+    '١ / ٣ · محادثة سريعة':'1 / 3 · Quick chat',
+    '← رجوع للمحادثة':'← Back to chat',
+    '⏳ جارٍ التحليل...':'⏳ Analyzing...',
+    '⚙️ الإعدادات':'⚙️ Settings',
+    '⚠️ استعادة البيانات':'⚠️ Restore Data',
+    '✅ تأكيد الحفظ':'✅ Confirm Save',
+    '✏️ تعديل':'✏️ Edit',
+    '✨ اقتراحات وتفاصيل التحليل':'✨ Suggestions & analysis details',
+    '✨ التحليل النهائي':'✨ Final Analysis',
+    '✨ توليد الفكرة':'✨ Generate Idea',
+    '✨ فكرة جديدة':'✨ New Idea',
+    '✨ وصف الفكرة':'✨ Idea Description',
+    '🎯 الهدف من الفكرة':'🎯 Goal of the Idea',
+    '💡 أفكار مشابهة':'💡 Similar Ideas',
+    '💡 اقتراحات تطوير':'💡 Development Suggestions',
+    '💬 محادثة':'💬 Chat',
+    '💰 نموذج الربح المتوقع':'💰 Expected Revenue Model',
+    '📊 التقييم':'📊 Evaluation',
+    '📊 مستوى التعقيد المتوقع':'📊 Expected Complexity Level',
+    '📋 أفكاري':'📋 My Ideas',
+    '📝 ملخص الفكرة':'📝 Idea Summary',
+    '🔁 إعادة المحاولة':'🔁 Retry',
+    '🔍 تحليل الفكرة':'🔍 Analyze Idea',
+    '🗑️ حذف':'🗑️ Delete',
+    '🗑️ حذف هذه الفكرة؟':'🗑️ Delete this idea?',
+    '🗺️ خطة التنفيذ':'🗺️ Execution Plan',
+    '🚀 تطوير الفكرة':'🚀 Develop Idea',
+    '🤖 أسئلة التحليل':'🤖 Analysis Questions',
+    '🤖 فكرة بالذكاء الاصطناعي':'🤖 AI Idea',
+    '🧑‍💻 الموارد المتاحة لك (اختر أكثر من واحد)':'🧑‍💻 Resources available to you (select more than one)',
+    '🧠 ملخص ذكي للنقاش':'🧠 Smart Discussion Summary',
+    'سريع ومجاني':'Fast and free',
+    'متوازن وذكي':'Balanced and smart',
+    'الأقوى من Google':'Most powerful from Google',
+    'Claude اقتصادي وسريع':'Economical and fast Claude',
+    'ذكي وسريع':'Smart and fast',
+    'الأقوى والأعلى تكلفة من Anthropic':'Most powerful and most expensive from Anthropic',
+    'سريع من OpenAI':'Fast from OpenAI',
+    'قوي من OpenAI':'Powerful from OpenAI',
+    'مفتوح المصدر':'Open source',
+    'أوروبي وقوي':'European and powerful',
+    'اقتصادي وذكي':'Economical and smart'
+  },
+  fa: {
+    'فكرة جديدة':'✨ ایده جدید','عنوان الفكرة':'عنوان ایده','اكتب فكرتك...':'ایده‌ات را بنویس...','تفاصيل (اختياري)':'جزئیات (اختیاری)','أي تفاصيل إضافية':'هر جزئیات اضافی','نوع الفكرة':'نوع ایده','حفظ الفكرة':'ذخیره ایده','Save idea':'ذخیره ایده','أفكاري':'ایده‌های من','Ideas':'ایده‌ها','المفضلة':'علاقه‌مندی‌ها','الإعدادات':'تنظیمات','اللغة':'زبان','بلدك':'کشور شما','اختر اللغة':'انتخاب زبان','اختر لغة التطبيق':'زبان برنامه را انتخاب کنید','Choose your language':'زبان خود را انتخاب کنید','Choose app language':'زبان برنامه را انتخاب کنید','إلغاء':'لغو','Cancel':'لغو','تحديد الكل':'انتخاب همه','حذف':'حذف','Delete':'حذف','جديدة':'جدید','قيد الدراسة':'در حال بررسی','مرفوضة':'رد شده','منفّذة':'انجام شده','ابحث في أفكارك…':'در ایده‌هایت جستجو کن…','Search your ideas…':'در ایده‌هایت جستجو کن…','احفظ أفكارك وطورها بالذكاء الاصطناعي':'ایده‌هایت را ذخیره کن و با هوش مصنوعی توسعه بده','لا توجد أفكار بعد':'هنوز ایده‌ای وجود ندارد','ابدأ بإضافة فكرة جديدة':'با افزودن یک ایده جدید شروع کن','المظهر':'ظاهر','تجربة الاستخدام':'تجربه کاربری','تخطي شاشة البداية':'رد کردن صفحه آغازین','فتح التطبيق مباشرة دون عرض الشاشة الترحيبية':'باز شدن مستقیم برنامه بدون صفحه خوش‌آمدگویی','سلة المهملات':'سطل زباله','الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'ایده‌ها پس از ۳۰ روز به‌طور خودکار برای همیشه حذف می‌شوند','مسح الكل':'پاک کردن همه','كل الأفكار':'همه ایده‌ها','بحث':'جستجو','رجوع':'بازگشت','تحليل تلقائي':'تحلیل خودکار','دفتر ملاحظات فقط':'فقط دفترچه یادداشت','المشروع':'پروژه','تجربة':'تجربه','تجاري':'تجاری','وصفات ومقادير طبخات':'دستورها و مقدارهای آشپزی','أفكاري':'ایده‌های من','Created by':'ساخته شده توسط','CREATED BY':'ساخته شده توسط','ابدأ الآن':'شروع کن','Start now':'شروع کن','تخطي هذه الشاشة في المرة القادمة':'دفعه بعد این صفحه نمایش داده نشود','Skip this screen next time':'دفعه بعد این صفحه نمایش داده نشود','Your idea deserves to become a real project':'ایده‌ات شایسته تبدیل شدن به یک پروژه واقعی است','فكرتك تستحق أن تصبح مشروعاً حقيقياً':'ایده‌ات شایسته تبدیل شدن به یک پروژه واقعی است','Powered by AI':'با قدرت هوش مصنوعی','مدعوم بالذكاء الاصطناعي':'با قدرت هوش مصنوعی','Your idea deserves to be seen':'ایده‌ات شایسته دیده شدن است','فكرتك تستحق أن تُرى':'ایده‌ات شایسته دیده شدن است','Turn it into a real project':'آن را به یک پروژه واقعی تبدیل کن','حوّلها إلى مشروع حقيقي بقوة الذكاء الاصطناعي':'آن را با هوش مصنوعی به پروژه‌ای واقعی تبدیل کن'
+  }
+};
+function uiText(ar,en){
+  const lang = state?.settings?.lang || 'ar';
+  if(lang==='ar') return ar;
+  const dict = UI_TRANSLATIONS.en || {};
+  return dict[ar] || en || ar;
+}
+function translateTextNodeValue(v){
+  const lang = state?.settings?.lang || 'ar';
+  if(lang==='ar') return v;
+  const dict = UI_TRANSLATIONS.en || {};
+  let out = v;
+  Object.keys(dict).sort((a,b)=>b.length-a.length).forEach(k=>{
+    if(out.includes(k)) out = out.split(k).join(dict[k]);
+  });
+  return out;
+}
+// Auto-translate any newly rendered content (covers all render*() call sites)
+let __translating = false;
+let __translateScheduled = false;
+function scheduleTranslate(){
+  if(state.settings.lang === 'ar' || __translating) return;
+  if(__translateScheduled) return;
+  __translateScheduled = true;
+  requestAnimationFrame(() => {
+    __translateScheduled = false;
+    __translating = true;
+    translateStaticUI();
+    __translating = false;
+  });
+}
+function startTranslateObserver(){
+  const content = $('content');
+  if(!content) return;
+  const obs = new MutationObserver(muts => {
+    if(__translating) return;
+    scheduleTranslate();
+  });
+  obs.observe(content, { childList:true, subtree:true, characterData:true });
+}
+// so we can always translate FROM the source regardless of current state.
+const __origTextMap = new WeakMap();
+const __origPlaceholderMap = new WeakMap();
+
+function translateStaticUI(){
+  const lang = state?.settings?.lang || 'ar';
+  const isAr = lang === 'ar';
+
+  // Text nodes
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const p=node.parentElement; if(!p) return NodeFilter.FILTER_REJECT;
+      if(['SCRIPT','STYLE','TEXTAREA','INPUT','OPTION'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if(p.closest('#splash')) return NodeFilter.FILTER_REJECT;
+      if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n=>{
+    if(!__origTextMap.has(n)) __origTextMap.set(n, n.nodeValue);
+    const original = __origTextMap.get(n);
+    const next = isAr ? original : translateTextNodeValue(original);
+    if(n.nodeValue !== next) n.nodeValue = next;
+  });
+
+  // Placeholders
+  document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+    if(el.closest('#splash')) return;
+    if(!__origPlaceholderMap.has(el)) __origPlaceholderMap.set(el, el.placeholder);
+    const original = __origPlaceholderMap.get(el);
+    const next = isAr ? original : translateTextNodeValue(original);
+    if(el.placeholder !== next) el.placeholder = next;
+  });
+
+  // data-ar/data-en elements (always reversible via dataset)
+  document.querySelectorAll('[data-ar][data-en]').forEach(el=>{
+    if(el.closest('#splash')) return;
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+}
+
+function currentLang(){ return LANGUAGES.find(l=>l[0]===state.settings.lang) || LANGUAGES[0]; }
+function currentLangName(){ return currentLang()[1]; }
+function currentLocale(){ return currentLang()[2] || 'en-GB'; }
+function aiLangInstruction(){ return state.settings.lang==='ar' ? 'اكتب بالعربية.' : `Write the entire response in ${currentLangName()}.`; }
 
 let state = {
   ideas: load(KEYS.ideas,[]),
@@ -1194,7 +1401,7 @@ function showToast(msg) {
 
 function fmtDate(iso) {
   return new Date(iso).toLocaleDateString(
-    state.settings.lang==='ar'?'ar-KW':'en-GB',
+    currentLocale(),
     {year:'numeric',month:'short',day:'numeric'}
   );
 }
@@ -1284,6 +1491,9 @@ function nav(view) {
 
   if(view==='list') renderList();
   if(view==='settings') renderSettings();
+
+  // re-apply translation to freshly-rendered content
+  if(state.settings.lang !== 'ar') translateStaticUI();
 
   // force repaint on iOS — fixes buttons not rendering on first visit
   requestAnimationFrame(() => {
@@ -1894,10 +2104,10 @@ async function triggerAnalysis(){
   let dots=0;
   const pulse=setInterval(()=>{dots=(dots%3)+1;$('ai-analysis-text').innerHTML=`⏳ جارٍ التحليل`+'.'.repeat(dots);show('ai-analysis-card');},500);
   const isAr=state.settings.lang==='ar';
-  const system=isAr?'أنت مستشار أعمال وابتكار خبير. ردودك مختصرة وعملية. اكتب بالعربية.':'You are an expert business and innovation advisor. Be concise and practical.';
+  const system=(isAr?'أنت مستشار أعمال وابتكار خبير. ردودك مختصرة وعملية. ':'You are an expert business and innovation advisor. Be concise and practical. ')+aiLangInstruction();
   const content=isAr
     ?`فكرة: "${idea.title}"\nالنوع: ${idea.category}\nالتفاصيل: ${idea.description||'لا يوجد'}\n\nاسأل 3 أسئلة مختصرة تساعد على فهم الفكرة أعمق، ثم أعطِ 3 مقترحات تطوير سريعة.\n\n**أسئلة:**\n1. ...\n2. ...\n3. ...\n\n**مقترحات تطوير:**\n• ...\n• ...\n• ...`
-    :`Idea: "${idea.title}"\nType: ${idea.category}\nDetails: ${idea.description||'None'}\n\nAsk 3 short questions to understand the idea better, then give 3 quick development suggestions.`;
+    :`Idea: "${idea.title}"\nType: ${idea.category}\nDetails: ${idea.description||'None'}\n\nAsk 3 short questions to understand the idea better, then give 3 quick development suggestions.\n\nLanguage: ${currentLangName()}.`;
   try{const text=await callClaude([{role:'user',content}],system);clearInterval(pulse);state.aiAnalysis=text;state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,analysis:text}:i);persist(KEYS.ideas,state.ideas);}
   catch(e){clearInterval(pulse);state.aiAnalysis=errMsg(e);}
   state.loadingAnalysis=false;renderDetailAI();
@@ -1910,10 +2120,10 @@ async function triggerPlan(){
   const pulse=setInterval(()=>{dots=(dots%3)+1;$('ai-plan-text').innerHTML=`⏳ جارٍ بناء الخطة`+'.'.repeat(dots);show('ai-plan-card');},500);
   const isAr=state.settings.lang==='ar';
   const country=state.settings.country||(isAr?'الكويت':'Kuwait');
-  const system=isAr?'أنت مستشار تنفيذي خبير. ردودك عملية ومفصلة مع أسعار تقريبية. اكتب بالعربية.':'You are an executive consultant. Be practical and detailed with approximate prices.';
+  const system=(isAr?'أنت مستشار تنفيذي خبير. ردودك عملية ومفصلة مع أسعار تقريبية. ':'You are an executive consultant. Be practical and detailed with approximate prices. ')+aiLangInstruction();
   const content=isAr
     ?`فكرة: "${idea.title}"\nالنوع: ${idea.category}\nالبلد: ${country}\n\n**1. مراحل التنفيذ:** (المرحلة، الوقت، التكلفة)\n**2. الأدوات والمواد:** (مع سعر تقريبي)\n**3. موردون محليون:** (محلات، مواقع)\n**4. موردون دوليون:** (AliExpress/Alibaba/Amazon)\n**5. خطوة البداية الفورية:** (شيء واحد اليوم)`
-    :`Idea: "${idea.title}"\nType: ${idea.category}\nCountry: ${country}\n\n**1. Execution Phases:**\n**2. Required Tools & Materials:**\n**3. Local Suppliers:**\n**4. International Suppliers:**\n**5. Immediate First Step:**`;
+    :`Idea: "${idea.title}"\nType: ${idea.category}\nCountry: ${country}\n\n**1. Execution Phases:**\n**2. Required Tools & Materials:**\n**3. Local Suppliers:**\n**4. International Suppliers:**\n**5. Immediate First Step:**\n\nLanguage: ${currentLangName()}.`;
   try{const text=await callClaude([{role:'user',content}],system);clearInterval(pulse);state.aiPlan=text;state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,plan:text}:i);persist(KEYS.ideas,state.ideas);}
   catch(e){clearInterval(pulse);state.aiPlan=errMsg(e);}
   state.loadingPlan=false;renderDetailAI();
@@ -1928,7 +2138,7 @@ async function sendChat(){
   state.chatHistory.push({role:'user',text:msg});
   state.loadingChat=true;renderChat();
   const isAr=state.settings.lang==='ar';
-  const system=isAr?'أنت مستشار أعمال وابتكار. أجب بشكل مختصر وعملي. اكتب بالعربية.':'You are a business advisor. Be concise and practical.';
+  const system=(isAr?'أنت مستشار أعمال وابتكار. أجب بشكل مختصر وعملي. ':'You are a business advisor. Be concise and practical. ')+aiLangInstruction();
   const history=[
     {role:'user',content:isAr?`فكرتي: "${idea.title}"`:  `My idea: "${idea.title}"`},
     {role:'assistant',content:state.aiAnalysis},
@@ -1969,8 +2179,8 @@ async function updateChatSummary(ideaId){
   const newMsgs=msgs.slice(done).map(m=>(m.role==='user'?'المستخدم: ':'المساعد: ')+m.text).join('\n');
   const isAr=state.settings.lang==='ar';
   const system=isAr
-    ?'أنت مساعد يلخّص النقاشات. ردك هو نص الملخص فقط بدون مقدمات أو عناوين.'
-    :'You summarize discussions. Reply with the summary text only, no preamble.';
+    ?'أنت مساعد يلخّص النقاشات. ردك هو نص الملخص فقط بدون مقدمات أو عناوين. '+aiLangInstruction()
+    :'You summarize discussions. Reply with the summary text only, no preamble. '+aiLangInstruction();
   const content=isAr
     ?`فكرة: "${idea.title}"\n\nالملخص السابق للنقاش:\n${idea.chatSummary||'لا يوجد بعد'}\n\nرسائل جديدة في النقاش:\n${newMsgs}\n\nاكتب ملخصاً محدثاً (3-5 جمل) يدمج الملخص السابق مع الجديد: أهم النقاط والقرارات والأرقام المذكورة فقط، بدون حشو.`
     :`Idea: "${idea.title}"\n\nPrevious discussion summary:\n${idea.chatSummary||'None yet'}\n\nNew messages:\n${newMsgs}\n\nWrite an updated 3-5 sentence summary merging old and new: key points, decisions, and numbers only.`;
@@ -2014,10 +2224,10 @@ async function triggerSimilar(){
   const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
   state.loadingSimilar=true;renderDetailAI();
   const isAr=state.settings.lang==='ar';
-  const system=isAr?'أنت مستشار ابتكار. ردودك مختصرة وعملية. اكتب بالعربية.':'You are an innovation advisor. Be concise.';
+  const system=(isAr?'أنت مستشار ابتكار. ردودك مختصرة وعملية. ':'You are an innovation advisor. Be concise. ')+aiLangInstruction();
   const content=isAr
     ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nأعطني 3 أفكار مشابهة أو مكمّلة، لكل واحدة سطر يشرح لماذا تناسبني:\n**أفكار مشابهة:**\n1. ...\n2. ...\n3. ...`
-    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nGive 3 similar or complementary ideas, one line each on why it fits.`;
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nGive 3 similar or complementary ideas, one line each on why it fits.\n\nLanguage: ${currentLangName()}.`;
   try{
     const text=await callClaude([{role:'user',content}],system);
     state.aiSimilar=text;
@@ -2031,10 +2241,10 @@ async function triggerDevelop(){
   const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
   state.loadingDevelop=true;renderDetailAI();
   const isAr=state.settings.lang==='ar';
-  const system=isAr?'أنت مستشار أعمال خبير. ردودك مختصرة وعملية. اكتب بالعربية.':'You are an expert business advisor. Be concise.';
+  const system=(isAr?'أنت مستشار أعمال خبير. ردودك مختصرة وعملية. ':'You are an expert business advisor. Be concise. ')+aiLangInstruction();
   const content=isAr
     ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nكيف أطوّر هذه الفكرة؟ أجب بهذا الشكل:\n**ميزة تنافسية مقترحة:**\n...\n**أول 3 خطوات عملية:**\n1. ...\n2. ...\n3. ...\n**خطأ شائع تجنّبه:**\n...`
-    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nHow do I develop it? Answer with: a competitive edge, first 3 practical steps, one common mistake to avoid.`;
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nHow do I develop it? Answer with: a competitive edge, first 3 practical steps, one common mistake to avoid.\n\nLanguage: ${currentLangName()}.`;
   try{
     const text=await callClaude([{role:'user',content}],system);
     state.aiDevelop=text;
@@ -2343,8 +2553,7 @@ function renderSettings(){
   $('save-key-btn').disabled=true;
   $('mode-auto-dot').className='mode-dot'+(state.settings.aiAuto?' sel':'');
   $('mode-manual-dot').className='mode-dot'+(!state.settings.aiAuto?' sel':'');
-  $('lang-ar').className='lang-opt'+(state.settings.lang==='ar'?' active':'');
-  $('lang-en').className='lang-opt'+(state.settings.lang==='en'?' active':'');
+  renderLanguageSelect();
   $('country-input').value=state.settings.country;
   if(state.customTypes.length){$('custom-types-display').textContent=state.customTypes.join(' · ');show('clear-types-btn');}
   else{$('custom-types-display').textContent='—';hide('clear-types-btn');}
@@ -2369,17 +2578,74 @@ let apiHelpOpen=false;
 function toggleApiHelp(){
   apiHelpOpen=!apiHelpOpen;
   apiHelpOpen?show('api-help-content'):hide('api-help-content');
-  $('api-help-btn').textContent=apiHelpOpen?'كيف أحصل على المفتاح؟ ▲':'كيف أحصل على المفتاح؟ ▼';
+  $('api-help-btn').textContent = apiHelpOpen
+    ? uiText('كيف أحصل على المفتاح؟ ▲','How do I get a key? ▲')
+    : uiText('كيف أحصل على المفتاح؟ ▼','How do I get a key? ▼');
 }
 function setAiMode(auto){
   state.settings.aiAuto=auto;persist(KEYS.settings,state.settings);
   $('mode-auto-dot').className='mode-dot'+(auto?' sel':'');
   $('mode-manual-dot').className='mode-dot'+(!auto?' sel':'');
 }
+function renderLanguageSelect(){
+  const html = LANGUAGES.map(l=>`<option value="${l[0]}" ${state.settings.lang===l[0]?'selected':''}>${l[1]}</option>`).join('');
+  const sel=$('lang-select'); if(sel){ sel.innerHTML = html; sel.value = state.settings.lang; }
+  const spl=$('splash-lang-select'); if(spl){ spl.innerHTML = html; spl.value = state.settings.lang; }
+}
+function t(ar,en){ return uiText(ar,en); }
+function ideaSparkApplyPatchedLanguage(){
+  // validate saved lang
+  if(!LANGUAGES.some(l=>l[0]===state.settings.lang)) state.settings.lang='ar';
+  const lang = state.settings.lang || 'ar';
+  const isAr = lang === 'ar';
+
+  // 1. Direction + html lang
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+  // 2. Font family
+  if(isAr){
+    document.body.style.fontFamily = "'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif";
+  } else {
+    document.body.style.fontFamily = "'Plus Jakarta Sans',sans-serif";
+  }
+
+  // 3. Translate data-ar / data-en elements (skip splash — it's always bilingual)
+  document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+    if(el.closest('#splash')) return;
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+
+  // 4. Re-render dynamic screens (creates fresh DOM with Arabic source text)
+  if(state.currentView === 'list')     renderList();
+  if(state.currentView === 'settings') renderSettings();
+  if(state.currentView === 'detail')   renderDetailAI();
+
+  // 5. Translate all text nodes (both directions, idempotent) — runs after re-render
+  translateStaticUI();
+
+  // 6. Update lang selects
+  renderLanguageSelect();
+
+  // 7. Back arrow direction
+  document.querySelectorAll('.back-arrow-circle').forEach(el => {
+    el.textContent = isAr ? '→' : '←';
+  });
+
+  // 8. Search placeholder
+  const searchEl = $('search-input');
+  if(searchEl) searchEl.placeholder = uiText('ابحث في أفكارك…','Search your ideas…');
+}
+
+function applyAppLanguage(){ ideaSparkApplyPatchedLanguage(); }
 function setLang(lang){
-  state.settings.lang=lang;persist(KEYS.settings,state.settings);
-  $('lang-ar').className='lang-opt'+(lang==='ar'?' active':'');
-  $('lang-en').className='lang-opt'+(lang==='en'?' active':'');
+  state.settings.lang = lang;
+  persist(KEYS.settings, state.settings);
+  try{ ideaSparkApplyPatchedLanguage(); } catch(e){ console.log(e); }
+  // force re-render current screen
+  if(state.currentView === 'settings') renderSettings();
+  if(state.currentView === 'list') renderList();
+  showToast(state.settings.lang==='ar' ? '✓ تم تغيير اللغة إلى '+currentLangName() : '✓ Language changed to '+currentLangName());
 }
 function saveCountry(){
   state.settings.country=$('country-input').value;persist(KEYS.settings,state.settings);
@@ -2387,6 +2653,10 @@ function saveCountry(){
 function clearCustomTypes(){
   state.customTypes=[];persist(KEYS.types,state.customTypes);renderSettings();
 }
+
+
+
+
 
 // ═══════════════════════════════════════════════════
 // INIT
@@ -2398,6 +2668,9 @@ applyTheme(state.settings.theme||'dark');
 
 // apply view mode
 setViewMode(state.settings.viewMode||'list');
+renderLanguageSelect();
+try{applyAppLanguage();}catch(e){console.log(e);}
+startTranslateObserver();
 
 // splash — auto-skip or show
 (function(){
@@ -2407,7 +2680,9 @@ setViewMode(state.settings.viewMode||'list');
   }
 })();
 
-function dismissSplash() {
+function dismissSplash() { try{
+  if(typeof renderLanguageSelect==='function') renderLanguageSelect();
+  if($('splash-lang-select')) setLang($('splash-lang-select').value);
   const skipNext = $('splash-skip-cb')?.checked || false;
   if(skipNext) {
     state.settings.skipSplash = true;
@@ -2417,8 +2692,7 @@ function dismissSplash() {
   const splash = $('splash');
   splash.classList.add('hide');
   setTimeout(() => { splash.style.display = 'none'; }, 520);
-  nav('new');
-}
+  nav('new'); }catch(e){ const splash=document.getElementById('splash'); if(splash) splash.style.display='none'; } }
 
 
 const STATUS_MAP = {
@@ -2430,7 +2704,7 @@ const STATUS_MAP = {
 function statusBadgeHTML(status) {
   if(!status||status==='new') return '';
   const s=STATUS_MAP[status]||STATUS_MAP.new;
-  return '<span class="status-badge '+s.cls+'">'+s.icon+' '+s.label+'</span>';
+  return '<span class="status-badge '+s.cls+'">'+s.icon+' '+t(s.label,s.label)+'</span>';
 }
 function isReminderDue(d){ return d&&new Date(d)<=new Date(); }
 function openStatusSheetFromDetail(){ if(window._detailIdeaId) openStatusSheet(window._detailIdeaId); }
@@ -2499,7 +2773,10 @@ function autoExpireTrash() {
 function updateTrashLabel() {
   const n = state.trash.length;
   const el = $('trash-count-label');
-  if(el) el.textContent = n ? n + ' فكرة محذوفة' : 'لا توجد أفكار محذوفة';
+  if(!el) return;
+  const isAr = state.settings.lang === 'ar';
+  if(!n) { el.textContent = isAr ? 'لا توجد أفكار محذوفة' : 'No deleted ideas'; return; }
+  el.textContent = isAr ? (n + ' فكرة محذوفة') : (n + (n===1 ? ' deleted idea' : ' deleted ideas'));
 }
 function openTrashSheet() {
   autoExpireTrash();
@@ -2643,5 +2920,5 @@ $('content').addEventListener('scroll',()=>{
 
 nav('new');
 </script>
-</body>
+<style>body{overflow-y:auto!important}.splash{min-height:100vh;padding-bottom:120px!important}</style><style>html[lang="fa"] body, html[lang="fa"] input, html[lang="fa"] textarea, html[lang="fa"] button, html[lang="fa"] select{font-family:"IBM Plex Sans Arabic","Tahoma",sans-serif!important}</style></body>
 </html>
